@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SystemJS-knockout-App</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="text/javascript" src="/node_modules/systemjs/dist/system.js"></script>
+  <script type="text/javascript" src="/node_modules/systemjs/dist/extras/named-register.js"></script>
+  <script type="text/javascript" src="/node_modules/systemjs/dist/extras/amd.js"></script>
+  <!-- <script type="text/javascript" src="node_modules/typescript/lib/typescript.js"></script> -->
+  <script type="systemjs-importmap">
+    {
+      "imports":{
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="KO-module-table">
+    <h2>Table</h2>
+    <table>
+      <tbody data-bind="foreach: rows">
+        <tr>
+          <td data-bind="text: name"></td>
+          <td data-bind="text: phone"></td>
+        </tr>
+      </tbody>
+    </table>
+    <button data-bind="click: addRow">Add Row</button>
+  </div>
+  <a href="/">Back</a>
+  <script>
+    System.import('./table-module.js');
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Form</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="text/javascript" src="/node_modules/systemjs/dist/system.js"></script>
+  <script type="text/javascript" src="/node_modules/systemjs/dist/extras/named-register.js"></script>
+  <script type="text/javascript" src="/node_modules/systemjs/dist/extras/amd.js"></script>
+  <!-- <script type="text/javascript" src="node_modules/typescript/lib/typescript.js"></script> -->
+  <script type="systemjs-importmap">
+    {
+      "imports":{
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="KO-module-custom">
+    <h2 data-bind="upperX: pageTitle"></h2>
+    <span data-bind="upperX: firstName"></span>
+    <span data-bind="upperX: lastName"></span><br>
+    <span data-bind="upperX: fullName"></span>
+  </div>
+  <a href="/">Back</a>
+  <script>
+    System.import('../modules/custom-module.js');
+  </script>
+</body>
+</html>

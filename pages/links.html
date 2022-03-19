@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Form</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="text/javascript" src="/node_modules/systemjs/dist/system.js"></script>
+  <script type="text/javascript" src="/node_modules/systemjs/dist/extras/named-register.js"></script>
+  <script type="text/javascript" src="/node_modules/systemjs/dist/extras/amd.js"></script>
+  <!-- <script type="text/javascript" src="node_modules/typescript/lib/typescript.js"></script> -->
+  <script type="systemjs-importmap">
+    {
+      "imports":{
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="module-custom">
+    <h2>Links</h2>
+    <div id="outterDiv">
+      <form id="myForm">
+        <div id="innerDiv">
+          <div>
+            <div id="innerInnerDiv">
+              <a href="http://ernestlv.github.io">link X</a>
+            </div>
+          </div>
+          <div>
+            <a href="https://www.google.com">link 2</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <a href="/">Back</a>
+  <script>
+    System.import('./links-module.js');
+  </script>
+</body>
+</html>
