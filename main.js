@@ -4,7 +4,8 @@ define([
   "https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
   "./modules/person-module.js",
   "./modules/car-module.js",
-  "./fragments/title-module.js"
+  "./fragments/header/header-module.js",
+  "./fragments/menu/menu-module.js"
 ], function(_, $, KO, Person, car) {
       console.log("main module created ...");
 
