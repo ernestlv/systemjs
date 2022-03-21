@@ -1,4 +1,5 @@
 # systemjs
-systemjs modular app
+
+modular web app based on systemjs
 
 requires node > 10.0.0
