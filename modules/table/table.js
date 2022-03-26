@@ -2,6 +2,7 @@ define([
   "knockout"
 ], function(KO){
   console.log("Table Model loaded!!");
+  
   return function TabletModel() {
     this.rows = KO.observableArray([
       { name: "John", phone: "123-456-7890"},

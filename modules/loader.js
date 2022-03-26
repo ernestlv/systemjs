@@ -43,9 +43,12 @@ define([
 
           return Promise.all([htmlPromise, cssPromise, modelPromise, argsPromise]).then(function([html, css, model, args]){
             console.log("Creating KO view-model...");
+            var KO_Model, koModel;
             if (model) {
-              var KO_Model = model.default;
-              var koModel = new KO_Model(args);
+              KO_Model = model.default;
+              if (typeof KO_Model === "function") { //true if model module returns a function
+                  koModel = new KO_Model(args);
+              }
             }
             var el = document.querySelector(elSelector);
             el && css && $(el).append('<style type="text/css">' + css + '</style>');
