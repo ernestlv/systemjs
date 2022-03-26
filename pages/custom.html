@@ -11,20 +11,24 @@
   <script type="systemjs-importmap">
     {
       "imports":{
+        "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
+        "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
+        "loader":"/modules/loader.js"
       }
     }
   </script>
 </head>
 <body>
-  <div class="KO-module-custom">
-    <h2 data-bind="upperX: pageTitle"></h2>
-    <span data-bind="upperX: firstName"></span>
-    <span data-bind="upperX: lastName"></span><br>
-    <span data-bind="upperX: fullName"></span>
-  </div>
+  <div id="module-header"></div>
+  <div id="module-custom"></div>
   <a href="/">Back</a>
   <script>
-    System.import('../modules/custom-module.js');
+    define(['loader'], function(loader){
+      loader.load_page([
+        "/modules/header/header-loader.js",
+        "/modules/custom/custom-loader.js"
+      ]);
+    });
   </script>
 </body>
 </html>

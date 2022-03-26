@@ -9,28 +9,26 @@
   <script type="text/javascript" src="/node_modules/systemjs/dist/extras/amd.js"></script>
   <!-- <script type="text/javascript" src="node_modules/typescript/lib/typescript.js"></script> -->
   <script type="systemjs-importmap">
-    {
-      "imports":{
-      }
+  {
+    "imports":{
+      "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
+      "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
+      "loader":"/modules/loader.js"
     }
+  }
   </script>
 </head>
 <body>
-  <div class="KO-module-table">
-    <h2>Table</h2>
-    <table>
-      <tbody data-bind="foreach: rows">
-        <tr>
-          <td data-bind="text: name"></td>
-          <td data-bind="text: phone"></td>
-        </tr>
-      </tbody>
-    </table>
-    <button data-bind="click: addRow">Add Row</button>
-  </div>
+  <div id="module-header"></div>
+  <div id="module-table"></div>
   <a href="/">Back</a>
   <script>
-    System.import('../modules/table-module.js');
+    define(['loader'], function(loader){
+      loader.load_page([
+        "/modules/header/header-loader.js",
+        "/modules/table/table-loader.js"
+      ]);
+    });
   </script>
 </body>
 </html>

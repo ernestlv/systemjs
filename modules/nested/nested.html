@@ -1,0 +1,11 @@
+<h2>Table Nested Array</h2>
+<table>
+  <tbody data-bind="foreach: rows">
+    <tr>
+      <!-- ko foreach: { data: $data, as:'col'} -->
+      <td data-bind="text: col"></td>
+      <!-- /ko -->
+    </tr>
+  </tbody>
+</table>
+<button data-bind="click: addRow">Add Row</button>

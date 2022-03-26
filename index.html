@@ -11,17 +11,26 @@
   <script type="systemjs-importmap">
     {
       "imports":{
+        "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
+        "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
+        "loader":"/modules/loader.js"
       }
     }
   </script>
 </head>
 <body>
   <div class="module-main">
-    <div id="fragment-header"></div>
-    <div id="fragment-menu"></div>
+    <div id="module-header"></div>
+    <div id="module-menu"></div>
+    ...
   </div>
   <script>
-    System.import('./main.js');
+    define(['loader'], function(loader){
+      loader.load_page([
+        "/modules/header/header-loader.js",
+        "/modules/menu/menu-loader.js"
+      ]);
+    });
   </script>
 </body>
 </html>

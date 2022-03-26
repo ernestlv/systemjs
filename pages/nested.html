@@ -9,29 +9,26 @@
   <script type="text/javascript" src="/node_modules/systemjs/dist/extras/amd.js"></script>
   <!-- <script type="text/javascript" src="node_modules/typescript/lib/typescript.js"></script> -->
   <script type="systemjs-importmap">
-    {
-      "imports":{
-      }
+  {
+    "imports":{
+      "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
+      "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
+      "loader":"/modules/loader.js"
     }
+  }
   </script>
 </head>
 <body>
-  <div class="KO-module-nested">
-    <h2>Table Nested Array</h2>
-    <table>
-      <tbody data-bind="foreach: rows">
-        <tr>
-          <!-- ko foreach: { data: $data, as:'col'} -->
-          <td data-bind="text: col"></td>
-          <!-- /ko -->
-        </tr>
-      </tbody>
-    </table>
-    <button data-bind="click: addRow">Add Row</button>
-  </div>
+  <div id="module-header"></div>
+  <div id="module-nested"></div>
   <a href="/">Back</a>
   <script>
-    System.import('../modules/nested-module.js');
+    define(['/modules/loader.js'], function(loader){
+      loader.load_page([
+        "/modules/header/header-loader.js",
+        "/modules/nested/nested-loader.js"
+      ]);
+    });
   </script>
 </body>
 </html>

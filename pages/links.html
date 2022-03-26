@@ -9,14 +9,15 @@
   <script type="text/javascript" src="/node_modules/systemjs/dist/extras/amd.js"></script>
   <!-- <script type="text/javascript" src="node_modules/typescript/lib/typescript.js"></script> -->
   <script type="systemjs-importmap">
-    {
-      "imports":{
-      }
+  {
+    "imports":{
+      "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
     }
+  }
   </script>
 </head>
 <body>
-  <div class="module-custom">
+  <div class="module-links">
     <h2>Links</h2>
     <div id="outterDiv">
       <form id="myForm">
@@ -35,7 +36,10 @@
   </div>
   <a href="/">Back</a>
   <script>
-    System.import('../modules/links-module.js');
+    System.import('../modules/links.js').then(function(module){
+      console.log('Page loaded');
+      $(document.body).addClass("page-loaded");
+    });
   </script>
 </body>
 </html>

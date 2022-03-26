@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>SystemJS-knockout-App</title>
+  <title>Form</title>
   <link rel="stylesheet" href="/styles.css">
   <script type="text/javascript" src="/node_modules/systemjs/dist/system.js"></script>
   <script type="text/javascript" src="/node_modules/systemjs/dist/extras/named-register.js"></script>
@@ -20,13 +20,13 @@
 </head>
 <body>
   <div id="module-header"></div>
-  <div id="module-list"></div>
+  <div id="module-test"></div>
   <a href="/">Back</a>
   <script>
     define(['loader'], function(loader){
       loader.load_page([
         "/modules/header/header-loader.js",
-        "/modules/list/list-loader.js"
+        "/modules/test/test-loader.js"
       ]);
     });
   </script>
