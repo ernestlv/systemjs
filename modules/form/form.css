@@ -1,0 +1,8 @@
+#module-form div.form-content {
+  padding-left: 0.5rem;
+}
+
+#module-form div.form-content h2 {
+  margin-top: 0;
+  color:blue;
+}

@@ -1,1 +1,15 @@
+#module-menu div.page-menu {
+  border-right: 1px solid gray;
+  padding-right: 0.5rem;
+}
 
+#module-menu div.page-menu h2 {
+  margin-top: 0;
+  color:green;
+}
+
+#module-menu div.page-menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}

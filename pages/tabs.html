@@ -2,38 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Form</title>
+  <title>SystemJS-knockout-App</title>
   <link rel="stylesheet" href="/styles.css">
   <script type="text/javascript" src="/node_modules/systemjs/dist/system.js"></script>
   <script type="text/javascript" src="/node_modules/systemjs/dist/extras/named-register.js"></script>
   <script type="text/javascript" src="/node_modules/systemjs/dist/extras/amd.js"></script>
   <!-- <script type="text/javascript" src="node_modules/typescript/lib/typescript.js"></script> -->
   <script type="systemjs-importmap">
-    {
-      "imports":{
-        "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
-        "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
-        "loader":"/modules/loader.js"
-      }
+  {
+    "imports":{
+      "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
+      "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
+      "loader":"/modules/loader.js"
     }
+  }
   </script>
 </head>
 <body>
-  <div id="page-form" class="main-content">
-    <div id="module-header"></div>
-    <div id="content-area">
-      <div id="module-menu" class="menu-area"></div>
-      <div id="module-form" class="menu-content"></div>
-    </div>
-    <div id="module-footer"></div>
-  </div>
+  <div id="module-header"></div>
+  <div id="module-tabs"></div>
+  <a href="/">Back</a>
   <script>
     define(['loader'], function(loader){
       loader.load_page([
         "/modules/header/header-loader.js",
-        "/modules/footer/footer-loader.js",
-        "/modules/menu/menu-loader.js",
-        "/modules/form/form-loader.js"
+        "/modules/tabs/tabs-loader.js"
       ]);
     });
   </script>

@@ -19,16 +19,21 @@
   </script>
 </head>
 <body>
-  <div class="module-main">
+  <div id="page-index" class="main-content">
     <div id="module-header"></div>
-    <div id="module-menu"></div>
-    ...
+    <div id="content-area">
+      <div id="module-menu" class="menu-area"></div>
+      <div id="module-test" class="menu-content"></div>
+    </div>
+    <div id="module-footer"></div>
   </div>
   <script>
     define(['loader'], function(loader){
       loader.load_page([
         "/modules/header/header-loader.js",
-        "/modules/menu/menu-loader.js"
+        "/modules/footer/footer-loader.js",
+        "/modules/menu/menu-loader.js",
+        "/modules/test/test-loader.js"
       ]);
     });
   </script>

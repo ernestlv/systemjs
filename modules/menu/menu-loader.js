@@ -6,7 +6,7 @@ define([
 
       return loader.load_module({
         htmlURL: '/modules/menu/menu.html',
-        //cssURL: '/modules/menu/menu.css',
+        cssURL: '/modules/menu/menu.css',
         //modelURL: '/modules/menu/menu.js',
         elSelector: '#module-menu'
       });

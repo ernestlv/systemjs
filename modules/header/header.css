@@ -1,3 +1,5 @@
-#module-header h1#page-title {
+#module-header div.page-title {
   color:red;
+  border-bottom: 1px solid gray;
+  padding-bottom: 0.5rem;
 }

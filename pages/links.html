@@ -33,12 +33,16 @@
         </div>
       </form>
     </div>
+    <iframe src="/pages/iframe.html"></iframe>
   </div>
   <a href="/">Back</a>
   <script>
     System.import('../modules/links.js').then(function(module){
       console.log('Page loaded');
       $(document.body).addClass("page-loaded");
+      $(document.body).on('click', function(){
+        alert("XXX")
+      });
     });
   </script>
 </body>

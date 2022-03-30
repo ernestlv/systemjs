@@ -5,3 +5,22 @@ body {
 body.page-loaded {
   display:block;
 }
+
+#module-header {
+
+}
+
+#module-footer {
+  clear: both;
+}
+
+#content-area .menu-area {
+  float:left;
+  width: 15%;
+
+}
+
+#content-area .menu-content {
+  float:right;
+  width: 85%;
+}
