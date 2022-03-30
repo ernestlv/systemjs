@@ -54,7 +54,7 @@ define([
       }
       loadTab(selectedTab).then(function(selectedTab){
         self.currentTab(selectedTab);
-      })
+      });
     };
     self.selectTab(self.tabs[0]); //first tab default
   };

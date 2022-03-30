@@ -1,8 +1,8 @@
 <div>
   <h2>Tabs</h2>
   <div class="tabs-list">
-    <ul data-bind="foreach: tabs">
-      <li data-bind="text: $data.label, click:$parent.selectTab"></li>
+    <ul data-bind="foreach: { data: tabs, as:'tab'}">
+      <li data-bind="text: tab.label, click:$parent.selectTab"></li>
     </ul>
   </div>
   <div class="tabs-content">
