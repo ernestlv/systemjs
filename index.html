@@ -13,7 +13,7 @@
       "imports":{
         "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
         "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
-        "loader":"/modules/loader.js"
+        "loader":"/app_modules/loader.js"
       }
     }
   </script>
@@ -25,7 +25,7 @@
   <script>
     define([
       "loader",
-      "/modules/index/index-loader.js"
+      "/app_modules/index/index-loader.js"
     ], function(loader, test){
       loader.create_observable("msg").subscribe(function(value){
         alert(value);

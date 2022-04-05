@@ -13,7 +13,7 @@
     "imports":{
       "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
       "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
-      "loader":"/modules/loader.js"
+      "loader":"/app_modules/loader.js"
     }
   }
   </script>
@@ -30,10 +30,10 @@
   <script>
     define([
       "loader",
-      "/modules/header/header-loader.js",
-      "/modules/footer/footer-loader.js",
-      "/modules/menu/menu-loader.js",
-      "/modules/tabs/tabs-loader.js"
+      "/app_modules/header/header-loader.js",
+      "/app_modules/footer/footer-loader.js",
+      "/app_modules/menu/menu-loader.js",
+      "/app_modules/tabs/tabs-loader.js"
     ], function(loader, header, footer, menu, tabs){
       console.log("Page Modules Loaded.");
       $(document.body).addClass("page-loaded");

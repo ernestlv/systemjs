@@ -13,7 +13,7 @@
       "imports":{
         "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
         "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
-        "loader":"/modules/loader.js"
+        "loader":"/app_modules/loader.js"
       }
     }
   </script>
@@ -29,7 +29,7 @@
   </div>
   <script>
     define([
-      "/modules/custom/custom-loader.js"
+      "/app_modules/custom/custom-loader.js"
     ], function(main){
       console.log("4 Page Modules Requested.");
       $(document.body).addClass("modules-requested");

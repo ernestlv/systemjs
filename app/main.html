@@ -13,7 +13,7 @@
       "imports":{
         "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
         "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
-        "loader":"/modules/loader.js"
+        "loader":"/app_modules/loader.js"
       }
     }
   </script>
@@ -29,7 +29,7 @@
   </div>
   <script>
     define([
-      "/modules/main/main-loader.js"
+      "/app_modules/main/main-loader.js"
     ], function(module){
       module.then(function(modules){
         console.log("11 Page Modules Rendered.");
