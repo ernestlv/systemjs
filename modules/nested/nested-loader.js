@@ -1,13 +1,18 @@
 define([
-  "loader"
-], function(loader) {
+  "loader",
+  "/modules/header/header-loader.js",
+  "/modules/footer/footer-loader.js",
+  "/modules/menu/menu-loader.js"
+], function(loader, header, footer, menu) {
 
-      console.log("Nested Loader created!");
+      console.log("Executing Nested Loader...");
 
-      return loader.load_module({
+      var module = loader.request_module({
         htmlURL: '/modules/nested/nested.html',
         cssURL: '/modules/nested/nested.css',
         modelURL: '/modules/nested/nested.js',
-        elSelector: '#module-nested'
+        elSelector: '.module-content'
       });
+
+      return loader.request_render([header, footer, menu, module]);
 });

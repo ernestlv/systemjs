@@ -1,10 +1,12 @@
-<h2>Table</h2>
-<table>
-  <tbody data-bind="foreach: rows">
-    <tr>
-      <td data-bind="text: name"></td>
-      <td data-bind="text: phone"></td>
-    </tr>
-  </tbody>
-</table>
-<button data-bind="click: addRow">Add Row</button>
+<div id="module-table" class="module-main">
+  <h2>Table</h2>
+  <table>
+    <tbody data-bind="foreach: rows">
+      <tr>
+        <td data-bind="text: name"></td>
+        <td data-bind="text: phone"></td>
+      </tr>
+    </tbody>
+  </table>
+  <button data-bind="click: addRow">Add Row</button>
+</div>

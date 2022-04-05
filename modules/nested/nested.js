@@ -1,8 +1,8 @@
 define([
   "knockout"
 ], function(KO){
-  console.log("Nested Model loaded!!");
-  
+  console.log("Executing Nested Module...");
+
   return function NestedModel() {
     var cols1 = KO.observableArray([
       "John", "123-456-7890"

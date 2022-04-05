@@ -1,14 +1,14 @@
-#module-menu div.page-menu {
+#module-menu div.module-main {
   border-right: 1px solid gray;
   padding-right: 0.5rem;
 }
 
-#module-menu div.page-menu h2 {
+#module-menu div.module-main h2 {
   margin-top: 0;
   color:green;
 }
 
-#module-menu div.page-menu ul {
+#module-menu div.module-main ul {
   list-style-type: none;
   margin: 0;
   padding: 0;

@@ -19,15 +19,25 @@
   </script>
 </head>
 <body>
-  <div id="module-header"></div>
-  <div id="module-table"></div>
-  <a href="/">Back</a>
+  <div id="page-form" class="main-content">
+    <div id="module-header"></div>
+    <div id="content-area">
+      <div id="module-menu" class="menu-area"></div>
+      <div id="module-tabs" class="menu-content"></div>
+    </div>
+    <div id="module-footer"></div>
+  </div>
   <script>
-    define(['loader'], function(loader){
-      loader.load_page([
-        "/modules/header/header-loader.js",
-        "/modules/table/table-loader.js"
-      ]);
+    define([
+      "loader",
+      "/modules/header/header-loader.js",
+      "/modules/footer/footer-loader.js",
+      "/modules/menu/menu-loader.js",
+      "/modules/tabs/tabs-loader.js"
+    ], function(loader, header, footer, menu, tabs){
+      console.log("Page Modules Loaded.");
+      $(document.body).addClass("page-loaded");
+      loader.request_render([header, footer, menu, tabs]);
     });
   </script>
 </body>

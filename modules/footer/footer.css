@@ -1,5 +1,5 @@
-#module-footer div.page-footer {
-  color:red;
+#module-footer div.module-main {
+  color:gray;
   border-top: 1px solid gray;
   padding-top: 0.5rem;
 }

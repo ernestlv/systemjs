@@ -2,13 +2,14 @@ define([
   "loader"
 ], function(loader) {
 
-      console.log("Menu Loader created!");
+      console.log("Executing Menu Loader...");
 
-      return loader.load_module({
+      var module = loader.request_module({
         htmlURL: '/modules/menu/menu.html',
         cssURL: '/modules/menu/menu.css',
         //modelURL: '/modules/menu/menu.js',
         elSelector: '#module-menu'
       });
 
+      return loader.request_render([module]);
 });

@@ -14,37 +14,15 @@ define([
       }
     }
     console.log("loading tab", selectedTab);
-    return loader.load_module(selectedTab).then(function(){
+    return loader.request_module(selectedTab).then(function(){
       loadedTabs.push(selectedTab);
       return selectedTab;
     });
   }
 
-  return function ListModel() {
+  return function TabsModel(tabs) {
     var self = this;
-    self.tabs = [
-      {
-        label:"one",
-        index:0,
-        htmlURL:"/modules/tab-one/tab-one.html",
-        modelURL:"/modules/tab-one/tab-one.js",
-        elSelector:"#module-tab-one"
-      },
-      {
-        label:"two",
-        index:1,
-        htmlURL:"/modules/tab-two/tab-two.html",
-        modelURL:"/modules/tab-two/tab-two.js",
-        elSelector:"#module-tab-two"
-      },
-      {
-        label:"three",
-        index:2,
-        htmlURL:"/modules/tab-three/tab-three.html",
-        modelURL:"/modules/tab-three/tab-three.js",
-        elSelector:"#module-tab-three"
-      }
-    ];
+    self.tabs = tabs;
     self.currentTab = KO.observable();
     self.selectTab = function(selectedTab) {
       console.log("selectedTab", selectedTab);

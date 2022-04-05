@@ -1,11 +1,14 @@
-<div>
+<div class="page-tabs">
+  <div>
+    <a href="/">Back</a>
+  </div>
   <h2>Tabs</h2>
   <div class="tabs-list">
     <ul data-bind="foreach: { data: tabs, as:'tab'}">
       <li data-bind="text: tab.label, click:$parent.selectTab"></li>
     </ul>
   </div>
-  <div class="tabs-content">
+  <div class="tabs-content" >
     <div data-bind="visible: currentTab() && currentTab().index == 0">
       <div id="module-tab-one"></div>
     </div>

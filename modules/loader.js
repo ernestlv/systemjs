@@ -3,12 +3,15 @@ define([
   "knockout"
 ], function($, KO) {
 
-      console.log("Loader Module created!");
+      console.log("1 Executing Module Loader ...");
+
+      var observables = {};
 
       //ajax request html fragment and injects it in element def by selector
       return {
-        load_module:function({htmlURL, cssURL, modelURL, elSelector}) {
-          var htmlPromise, cssPromise, modelPromise, argsPromise;
+        request_module:function({htmlURL, cssURL, modelURL, elSelector}) {
+          var htmlPromise, cssPromise, modelPromise, argsPromise
+          console.log("3 Requesting Module:", {htmlURL, cssURL, modelURL, elSelector});
 
           if (htmlURL) {
             htmlPromise = $.ajax({
@@ -30,10 +33,16 @@ define([
 
           if (modelURL) {
             if (typeof modelURL === "string") {
-              modelPromise = System.import(modelURL);
+              modelPromise = System.import(modelURL).then(function(module){
+                console.log("8 request_module: modelURL resolved", modelURL);
+                return module.default;
+              });
               argsPromise = Promise.resolve(undefined);
             } else {
-              modelPromise = System.import(modelURL.url);
+              modelPromise = System.import(modelURL.url).then(function(module){
+                console.log("8 request_module: modelURL resolved", modelURL);
+                return module.default;
+              });
               argsPromise = Promise.resolve(modelURL.args);
             }
           } else {
@@ -42,33 +51,49 @@ define([
           }
 
           return Promise.all([htmlPromise, cssPromise, modelPromise, argsPromise]).then(function([html, css, model, args]){
-            var KO_Model, koModel;
+            console.log("9 request_module: html, css, model dependencies resolved");
+            var koModel;
             if (model) {
-              KO_Model = model.default;
-              if (typeof KO_Model === "function") { //true if model module returns a function
-                  console.log("Creating KO view-model...", KO_Model.name);
-                  koModel = new KO_Model(args);
+              console.log("9.1 Creating view-model:", elSelector, model);
+              if (typeof model === "function") { //true if model module returns a function
+                koModel = new model(args);
+              } else {
+                koModel = model;
               }
             }
             var el = document.querySelector(elSelector);
-            el && css && $(el).append('<style type="text/css">' + css + '</style>');
-            el && html && $(el).append(html);
-            el && koModel && KO.applyBindings(koModel, el);
-            return { el, koModel };
+            return { elSelector, el, html, css, koModel };
           });
         },
 
-        load_page: function(dependencies) {
-            var promises = dependencies.map(function(dep) {
-              console.log("Loading", dep);
-              return System.import(dep);
+        request_render: function(promises) {
+          console.log("5 request_render:", promises)
+          var new_promises = promises.map(function(promiseModule){
+            console.log("5.1 request_render: map module:", promiseModule);
+            return promiseModule.then(function({ elSelector, el, html, css, koModel }){
+              console.log("10 Rendering Module:", elSelector);
+              el && css && $(el).append('<style type="text/css">' + css + '</style>');
+              el && html && $(el).append(html);
+              el && koModel && KO.applyBindings(koModel, el);
+              return { elSelector, el, html, css, koModel };
             });
-            return Promise.all(promises).then(function(results){
-              console.log("Page Loaded!");
-              $(document.body).addClass("page-loaded");
-              return results;
-            });
+          });
+          return Promise.all(new_promises);
+        },
+
+        has_observable: function(id) {
+          return !!observables[id];
+        },
+
+        create_observable: function(id, value) {
+          if (!this.has_observable(id)) {
+            observables[id] = KO.observable(value);
+          }
+          return observables[id];
+        },
+
+        get_observable: function(id) {
+          return observables[id];
         }
       };
-
 });

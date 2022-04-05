@@ -2,7 +2,7 @@ define([
   "knockout"
 ], function(KO){
 
-  console.log("Form Model loaded!!");
+  console.log("Execute Form Module...");
 
   return function FormModel() {
     this.firstName = KO.observable("John");

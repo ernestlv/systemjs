@@ -2,13 +2,15 @@ define([
   "loader"
 ], function(loader) {
 
-      console.log("Footer Loader created!");
+      console.log("Executing Footer Loader...");
 
-      return loader.load_module({
+      var module = loader.request_module({
         htmlURL: '/modules/footer/footer.html',
         cssURL: '/modules/footer/footer.css',
         //modelURL: '/modules/footer/footer.js',
         elSelector: '#module-footer'
       });
+
+      return loader.request_render([module]);
 
 });

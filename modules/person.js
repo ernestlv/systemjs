@@ -1,5 +1,5 @@
 define(function(){
-  console.log("Person Module Created!");
+  console.log("6 Exectuing Person Module...");
 
   class Person {
     name = "Pai"

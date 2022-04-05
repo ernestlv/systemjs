@@ -2,7 +2,7 @@ body {
   display: none;
 }
 
-body.page-loaded {
+body.modules-rendered {
   display:block;
 }
 

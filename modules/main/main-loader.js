@@ -4,16 +4,14 @@ define([
   "/modules/footer/footer-loader.js",
   "/modules/menu/menu-loader.js"
 ], function(loader, header, footer, menu) {
-
-      console.log("Executing Form Loader...");
+      console.log("2 Executing Main Loader...");
 
       var module = loader.request_module({
-        htmlURL: '/modules/form/form.html',
-        cssURL: '/modules/form/form.css',
-        modelURL: '/modules/form/form.js',
+        htmlURL: '/modules/main/main.html',
+        cssURL: '/modules/main/main.css',
+        //modelURL: '/modules/main/main.js',
         elSelector: '.module-content'
       });
 
       return loader.request_render([header, footer, menu, module]);
-
 });

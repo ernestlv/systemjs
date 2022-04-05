@@ -1,6 +1,7 @@
 define([
-], function() {
+  "loader"
+], function(loader) {
 
-  console.log("Footer Model loaded!!");
+  console.log("Execute Footer Module...");
 
 });

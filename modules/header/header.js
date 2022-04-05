@@ -1,6 +1,6 @@
 define([
 ], function() {
 
-  console.log("Header Model loaded!!");
+  console.log("Executing Header Module...");
 
 });

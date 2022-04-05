@@ -19,15 +19,24 @@
   </script>
 </head>
 <body>
-  <div id="module-header"></div>
-  <div id="module-nested"></div>
-  <a href="/">Back</a>
+  <div id="page-list" class="page-content">
+    <div id="module-header"></div>
+    <div id="content-area">
+      <div id="module-menu" class="menu-area"></div>
+      <div class="module-content"></div>
+    </div>
+    <div id="module-footer"></div>
+  </div>
   <script>
-    define(['/modules/loader.js'], function(loader){
-      loader.load_page([
-        "/modules/header/header-loader.js",
-        "/modules/nested/nested-loader.js"
-      ]);
+    define([
+      "/modules/list/list-loader.js"
+    ], function(main){
+      console.log("4 Page Modules Requested.");
+      $(document.body).addClass("modules-requested");
+      main.then(function(modules){
+        console.log("11 Page Modules Rendered.");
+        $(document.body).addClass("modules-rendered");
+      });
     });
   </script>
 </body>

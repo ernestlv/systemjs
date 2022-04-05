@@ -1,6 +1,7 @@
 define([
-], function() {
+  "loader"
+], function(loader) {
 
-  console.log("Menu Model loaded!!");
+  console.log("Executing Menu Module...");
 
 });

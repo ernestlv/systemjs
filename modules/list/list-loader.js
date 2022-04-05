@@ -1,14 +1,18 @@
 define([
-  "loader"
-], function(loader) {
-
+  "loader",
+  "/modules/header/header-loader.js",
+  "/modules/footer/footer-loader.js",
+  "/modules/menu/menu-loader.js"
+], function(loader, header, footer, menu) {
       console.log("List Loader created!");
 
-      return loader.load_module({
+      var module = loader.request_module({
         htmlURL: '/modules/list/list.html',
         cssURL: '/modules/list/list.css',
         modelURL: '/modules/list/list.js',
-        elSelector: '#module-list'
+        elSelector: '.module-content'
       });
+
+      return loader.request_render([header, footer, menu, module]);
 
 });

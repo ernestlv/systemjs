@@ -1,5 +1,5 @@
 define([
-  "https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js"
+  "knockout"
 ], function(KO) {
 
   console.log("Custom Model loaded!!");

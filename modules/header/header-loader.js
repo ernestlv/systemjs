@@ -2,13 +2,15 @@ define([
   "loader"
 ], function(loader) {
 
-      console.log("Header Loader created!");
+      console.log("Executing Header Loader...");
 
-      return loader.load_module({
+      var module = loader.request_module({
         htmlURL: '/modules/header/header.html',
         cssURL: '/modules/header/header.css',
         //modelURL: '/modules/header/header.js',
         elSelector: '#module-header'
       });
+
+      return loader.request_render([module]);
 
 });

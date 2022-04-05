@@ -1,8 +1,8 @@
 define([
   "knockout"
 ], function(KO){
-  console.log("Table Model loaded!!");
-  
+  console.log("Executing Table Module...");
+
   return function TabletModel() {
     this.rows = KO.observableArray([
       { name: "John", phone: "123-456-7890"},
