@@ -15,6 +15,10 @@ define([
         alert($(this).children().attr('href'))
       });
 
+      $(document.body).on('click', function(){
+        alert("page click!")
+      });
+
       return Promise.all([header,footer, menu]);
 
 });

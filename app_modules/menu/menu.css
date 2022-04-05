@@ -1,14 +1,14 @@
-#module-menu div.module-main {
+#module-menu {
   border-right: 1px solid gray;
-  padding-right: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 0;
 }
 
-#module-menu div.module-main h2 {
+#module-menu h2 {
   margin-top: 0;
-  color:green;
+  color:silver;
 }
 
-#module-menu div.module-main ul {
+#module-menu ul {
   list-style-type: none;
   margin: 0;
   padding: 0;

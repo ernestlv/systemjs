@@ -19,13 +19,13 @@
   </script>
 </head>
 <body>
-  <div id="page-form" class="page-content">
-    <div id="module-header"></div>
-    <div id="content-area">
-      <div id="module-menu" class="menu-area"></div>
-      <div class="module-content">
-        <div id="module-links">
-          <h2>Links</h2>
+  <div id="page-links" class="page-content">
+    <div id="app-header"></div>
+    <div id="app-body">
+      <div id="app-menu"></div>
+      <div id="app-content">
+        <div id="module-links" style="padding: 0.5rem 0 0.5rem 0.5rem">
+          <h2 style="color:silver; margin-top:0">Links</h2>
           <div id="outterDiv">
             <form id="myForm">
               <div id="innerDiv">
@@ -44,21 +44,16 @@
         </div>
       </div>
     </div>
-    <div id="module-footer"></div>
+    <div id="app-footer"></div>
   </div>
   <script>
     define([
       "/app_modules/links.js"
-    ], function(module) {
-      module.then(function(){
+    ], function(modulePromise) {
+      modulePromise.then(function(modules){
         console.log("11 Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
-        $(document.body).on('click', function(){
-          alert("page click!")
-        });
       });
-      console.log("4 Page Modules Requested.");
-      $(document.body).addClass("modules-requested");
     });
   </script>
 </body>

@@ -1,6 +1,6 @@
 define([
 ], function() {
 
-  console.log("7 Executing Test Module...");
+  console.log("7 Executing main Module...");
 
 });

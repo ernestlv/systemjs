@@ -1,0 +1,8 @@
+#module-custom {
+  padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+#module-custom h2 {
+  margin-top: 0;
+  color:silver;
+}

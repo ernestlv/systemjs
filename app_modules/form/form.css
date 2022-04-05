@@ -1,8 +1,8 @@
-#module-form div.module-main {
-  padding-left: 0.5rem;
+#module-form {
+  padding: 0.5rem 0 0.5rem 0.5rem;
 }
 
-#module-form div.module-main h2 {
+#module-form h2 {
   margin-top: 0;
-  color:blue;
+  color:silver;
 }

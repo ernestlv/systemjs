@@ -19,21 +19,19 @@
   </script>
 </head>
 <body>
-  <div id="page-form" class="page-content">
-    <div id="module-header"></div>
-    <div id="content-area">
-      <div id="module-menu" class="menu-area"></div>
-      <div class="module-content"></div>
+  <div id="page-main" class="page-content">
+    <div id="app-header"></div>
+    <div id="app-body">
+      <div id="app-menu"></div>
+      <div id="app-content"></div>
     </div>
-    <div id="module-footer"></div>
+    <div id="app-footer"></div>
   </div>
   <script>
     define([
       "/app_modules/custom/custom-loader.js"
-    ], function(main){
-      console.log("4 Page Modules Requested.");
-      $(document.body).addClass("modules-requested");
-      main.then(function(modules){
+    ], function(modulePromise){
+      modulePromise.then(function(modules){
         console.log("11 Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });

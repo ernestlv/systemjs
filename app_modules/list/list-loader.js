@@ -7,10 +7,11 @@ define([
       console.log("List Loader created!");
 
       var module = loader.request_module({
+        id:'module-list',
         htmlURL: '/app_modules/list/list.html',
         cssURL: '/app_modules/list/list.css',
         modelURL: '/app_modules/list/list.js',
-        elSelector: '.module-content'
+        elSelector: '#app-content'
       });
 
       return loader.request_render([header, footer, menu, module]);

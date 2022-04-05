@@ -7,10 +7,11 @@ define([
       console.log("Executing Table Loader...");
 
       var module = loader.request_module({
+        id: 'module-table',
         htmlURL: '/app_modules/table/table.html',
         cssURL: '/app_modules/table/table.css',
         modelURL: '/app_modules/table/table.js',
-        elSelector: '.module-content'
+        elSelector: '#app-content'
       });
 
       return loader.request_render([header, footer, menu, module]);

@@ -26,11 +26,11 @@
     define([
       "loader",
       "/app_modules/index/index-loader.js"
-    ], function(loader, test){
+    ], function(loader, modulePromise){
       loader.create_observable("msg").subscribe(function(value){
         alert(value);
       });
-      test.then(function(modules){
+      modulePromise.then(function(modules){
         console.log("11 Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });

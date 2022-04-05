@@ -1,5 +1,8 @@
-#module-header div.module-main {
-  color:gray;
+#module-header {
   border-bottom: 1px solid gray;
   padding-bottom: 0.5rem;
+}
+
+#module-header {
+  color:silver;
 }

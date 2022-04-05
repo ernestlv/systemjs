@@ -1,26 +1,27 @@
 body {
   display: none;
+  font-family: sans-serif;
 }
 
 body.modules-rendered {
   display:block;
 }
 
-#module-header {
+#app-header {
 
 }
 
-#module-footer {
+#app-footer {
   clear: both;
 }
 
-#content-area .menu-area {
+#app-body #app-menu {
   float:left;
   width: 15%;
 
 }
 
-#content-area .menu-content {
+#app-body #app-content {
   float:right;
   width: 85%;
 }

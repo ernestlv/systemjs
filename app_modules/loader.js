@@ -9,9 +9,9 @@ define([
 
       //ajax request html fragment and injects it in element def by selector
       return {
-        request_module:function({htmlURL, cssURL, modelURL, elSelector}) {
+        request_module:function({id, htmlURL, cssURL, modelURL, elSelector}) {
           var htmlPromise, cssPromise, modelPromise, argsPromise
-          console.log("3 Requesting Module:", {htmlURL, cssURL, modelURL, elSelector});
+          console.log("3 Requesting Module:", {id, htmlURL, cssURL, modelURL, elSelector});
 
           if (htmlURL) {
             htmlPromise = $.ajax({
@@ -51,34 +51,37 @@ define([
           }
 
           return Promise.all([htmlPromise, cssPromise, modelPromise, argsPromise]).then(function([html, css, model, args]){
-            console.log("9 request_module: html, css, model dependencies resolved");
-            var koModel;
+            console.log("9 request_module: html, css, model dependencies resolved for module:", id);
+            var viewModel;
             if (model) {
-              console.log("9.1 Creating view-model:", elSelector, model);
+              console.log("9.1 Creating view-model:", id, model);
               if (typeof model === "function") { //true if model module returns a function
-                koModel = new model(args);
+                viewModel = new model(args);
               } else {
-                koModel = model;
+                viewModel = model;
               }
             }
             var el = document.querySelector(elSelector);
-            return { elSelector, el, html, css, koModel };
+            return { id, elSelector, el, html, css, viewModel };
           });
         },
 
-        request_render: function(promises) {
-          console.log("5 request_render:", promises)
-          var new_promises = promises.map(function(promiseModule){
-            console.log("5.1 request_render: map module:", promiseModule);
-            return promiseModule.then(function({ elSelector, el, html, css, koModel }){
-              console.log("10 Rendering Module:", elSelector);
+        request_render: function(promiseModules) { //modules to render
+          console.log("5 request_render: Module", promiseModules);
+          return Promise.all(promiseModules).then(function(modules){ //returns array of promises resolved to all rendered modules
+            return modules.map(function(module){ //render module
+              if (Object.prototype.toString.apply(module) === '[object Array]') { //if this is true request_render was called twice for the same module in different loaders.
+                console.log("10 Recursive Rendering for Module:", module[0].id);
+                return module[0];
+              }
+              var { id, elSelector, el, html, css, viewModel } =  module;
+              console.log("10 Rendering Module:", id);
               el && css && $(el).append('<style type="text/css">' + css + '</style>');
               el && html && $(el).append(html);
-              el && koModel && KO.applyBindings(koModel, el);
-              return { elSelector, el, html, css, koModel };
+              el && viewModel && KO.applyBindings(viewModel, el);
+              return module;
             });
           });
-          return Promise.all(new_promises);
         },
 
         has_observable: function(id) {
