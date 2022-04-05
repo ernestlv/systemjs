@@ -11,7 +11,7 @@ define([
 
   var person = new Person();
 
-  return function TestModel(args) {
+  return function IndexModel(args) {
     this.args = args;
     this.name = KO.observable(person.name);
     this.model = KO.observable(car.model);

@@ -11,7 +11,7 @@ define([
     }
   }
 
-  return function TextModel() {
+  return function CustomModel() {
     this.pageTitle = "Custom";
     this.firstName = KO.observable("John");
     this.lastName = KO.observable("Smith");
