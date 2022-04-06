@@ -14,5 +14,5 @@ define([
         elSelector: '#app-content'
       });
 
-      return loader.request_render([header, footer, menu, module]);
+      return loader.request_render([module]);
 });

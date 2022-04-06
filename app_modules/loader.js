@@ -34,13 +34,13 @@ define([
           if (modelURL) {
             if (typeof modelURL === "string") {
               modelPromise = System.import(modelURL).then(function(module){
-                console.log("8 request_module: modelURL resolved", modelURL);
+                console.log("8 request_module: module for modelURL resolved", modelURL);
                 return module.default;
               });
               argsPromise = Promise.resolve(undefined);
             } else {
               modelPromise = System.import(modelURL.url).then(function(module){
-                console.log("8 request_module: modelURL resolved", modelURL);
+                console.log("8 request_module: module for modelURL resolved", modelURL);
                 return module.default;
               });
               argsPromise = Promise.resolve(modelURL.args);

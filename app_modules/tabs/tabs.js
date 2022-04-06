@@ -3,7 +3,7 @@ define([
   "loader"
 ], function(KO, loader){
 
-  console.log("List Model loaded!!");
+  console.log("Executing Tabs Module...");
 
   var loadedTabs = [];
 
@@ -13,8 +13,11 @@ define([
         return Promise.resolve(selectedTab); //tab already loaded
       }
     }
-    console.log("loading tab", selectedTab);
-    return loader.request_module(selectedTab).then(function(){
+    console.log("requesting tab module:", selectedTab);
+    var tabPromise = loader.request_module(selectedTab);
+
+    return loader.request_render([tabPromise]).then(function(tabModule){
+      console.log("tab module rendered:", selectedTab);
       loadedTabs.push(selectedTab);
       return selectedTab;
     });

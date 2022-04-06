@@ -1,14 +1,14 @@
-#module-tabs div.page-tabs {
-  padding-left: 0.5rem;
+#module-tabs {
+  padding: 0.5rem 0 0.5rem 0.5rem;
 }
 
-#module-tabs div.page-tabs > h2 {
+#module-tabs > h2 {
   margin-top: 0;
-  color:blue;
+  color:silver;
 }
 
 #module-tabs div.tabs-list {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid silver;
 }
 
 #module-tabs div.tabs-list ul {
@@ -19,7 +19,7 @@
 
 #module-tabs div.tabs-list li {
   display: inline;
-  border: 1px solid gray;
+  border: 1px solid silver;
   border-bottom: 0;
   padding: 0 1rem;
 }
