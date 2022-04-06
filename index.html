@@ -24,9 +24,10 @@
   </div>
   <script>
     define([
+      "loader",
       "/app_modules/index/index-loader.js"
-    ], function(modulePromise){
-      modulePromise.then(function(modules){
+    ], function(loader, index){
+      loader.request_render([index]).then(function(modules){
         console.log("11 Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });

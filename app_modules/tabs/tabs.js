@@ -14,10 +14,10 @@ define([
       }
     }
     console.log("requesting tab module:", selectedTab);
-    var tabPromise = loader.request_module(selectedTab);
+    var tabModulePromise = loader.request_module(selectedTab);
 
-    return loader.request_render([tabPromise]).then(function(tabModule){
-      console.log("tab module rendered:", selectedTab);
+    return loader.request_render([tabModulePromise]).then(function(tabModule){
+      console.log("tab module rendered:", selectedTab, tabModule);
       loadedTabs.push(selectedTab);
       return selectedTab;
     });

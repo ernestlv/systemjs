@@ -1,10 +1,6 @@
 define([
-  "jquery",
-  "loader",
-  "/app_modules/header/header-loader.js",
-  "/app_modules/footer/footer-loader.js",
-  "/app_modules/menu/menu-loader.js"
-], function($, loader, header, footer, menu) {
+  "jquery"
+], function($) {
 
       console.log("Exectuing Links Module...");
 
@@ -18,7 +14,5 @@ define([
       $(document.body).on('click', function(){
         alert("page click!")
       });
-
-      return Promise.all([header,footer, menu]);
 
 });

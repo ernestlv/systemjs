@@ -4,7 +4,7 @@ define([
 
       console.log("Executing Menu Loader...");
 
-      var module = loader.request_module({
+      return loader.request_module({
         id:'app-menu',
         htmlURL: '/app_modules/menu/menu.html',
         cssURL: '/app_modules/menu/menu.css',
@@ -12,5 +12,4 @@ define([
         elSelector: '#app-menu'
       });
 
-      return loader.request_render([module]);
 });

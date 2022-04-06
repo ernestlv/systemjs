@@ -25,22 +25,25 @@
       <div id="app-menu"></div>
       <div id="app-content">
         <div id="module-links" style="padding: 0.5rem 0 0.5rem 0.5rem">
-          <h2 style="color:silver; margin-top:0">Links</h2>
-          <div id="outterDiv">
-            <form id="myForm">
-              <div id="innerDiv">
-                <div>
-                  <div id="innerInnerDiv">
-                    <a href="http://ernestlv.github.io">link X</a>
+            <h2 style="color:silver; margin-top:0">Links</h2>
+            <div id="outterDiv">
+              <form id="myForm">
+                <div id="innerDiv">
+                  <div>
+                    <div id="innerInnerDiv">
+                      <a href="http://ernestlv.github.io">link X</a>
+                    </div>
+                  </div>
+                  <div>
+                    <a href="https://www.google.com">link 2</a>
                   </div>
                 </div>
-                <div>
-                  <a href="https://www.google.com">link 2</a>
-                </div>
-              </div>
-            </form>
-          </div>
-          <iframe src="/app/iframe.html"></iframe>
+              </form>
+            </div>
+            <iframe src="/app/iframe.html"></iframe>
+            <div>
+              <a href="/app/main.html">Back</a>
+            </div>
         </div>
       </div>
     </div>
@@ -48,9 +51,13 @@
   </div>
   <script>
     define([
+      "loader",
+      "/app_modules/header/header-loader.js",
+      "/app_modules/footer/footer-loader.js",
+      "/app_modules/menu/menu-loader.js",
       "/app_modules/links.js"
-    ], function(modulePromise) {
-      modulePromise.then(function(modules){
+    ], function(loader, header, footer, menu) {
+      loader.request_render([header, footer, menu]).then(function(modules){
         console.log("11 Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });

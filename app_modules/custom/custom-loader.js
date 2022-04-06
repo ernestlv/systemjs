@@ -1,13 +1,10 @@
 define([
-  "loader",
-  "/app_modules/header/header-loader.js",
-  "/app_modules/footer/footer-loader.js",
-  "/app_modules/menu/menu-loader.js"
+  "loader"
 ], function(loader) {
 
       console.log("Custom Loader created!");
 
-      var module = loader.request_module({
+      return loader.request_module({
         id:'module-custom',
         htmlURL: '/app_modules/custom/custom.html',
         cssURL: '/app_modules/custom/custom.css',
@@ -15,5 +12,4 @@ define([
         elSelector: '#app-content'
       });
 
-      return loader.request_render([module]);
 });

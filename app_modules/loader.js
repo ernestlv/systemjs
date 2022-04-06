@@ -34,13 +34,13 @@ define([
           if (modelURL) {
             if (typeof modelURL === "string") {
               modelPromise = System.import(modelURL).then(function(module){
-                console.log("8 request_module: module for modelURL resolved", modelURL);
+                console.log("8 request_module: module for modelURL resolved:", modelURL);
                 return module.default;
               });
               argsPromise = Promise.resolve(undefined);
             } else {
               modelPromise = System.import(modelURL.url).then(function(module){
-                console.log("8 request_module: module for modelURL resolved", modelURL);
+                console.log("8 request_module: module for modelURL resolved:", modelURL);
                 return module.default;
               });
               argsPromise = Promise.resolve(modelURL.args);
@@ -67,7 +67,7 @@ define([
         },
 
         request_render: function(promiseModules) { //modules to render
-          console.log("5 request_render: Module", promiseModules);
+          console.log("5 request_render: For Requested Modules:", promiseModules);
           return Promise.all(promiseModules).then(function(modules){ //returns array of promises resolved to all rendered modules
             return modules.map(function(module){ //render module
               if (Object.prototype.toString.apply(module) === '[object Array]') { //if this is true request_render was called twice for the same module in different loaders.

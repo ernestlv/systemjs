@@ -23,7 +23,7 @@ define([
       });
 
       modulePromise.then(function(indexModule){
-        console.log("9.2 request_module resolved");
+        console.log("9.2 request_module resolved for module:", indexModule.id);
         //lazy loading
         System.import("/app_modules/planet.js").then(function(planetModule) {
           console.log("13 planet module resolver")
@@ -34,5 +34,6 @@ define([
         return indexModule;
       });
 
-      return loader.request_render([modulePromise]);
+      return modulePromise;
+      
 });

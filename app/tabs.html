@@ -29,9 +29,13 @@
   </div>
   <script>
     define([
+      "loader",
+      "/app_modules/header/header-loader.js",
+      "/app_modules/footer/footer-loader.js",
+      "/app_modules/menu/menu-loader.js",
       "/app_modules/tabs/tabs-loader.js"
-    ], function(modulePromise){
-      modulePromise.then(function(modules){
+    ], function(loader, header, footer, menu, tabs){
+      loader.request_render([header, footer, menu, tabs]).then(function(modules){
         console.log("11 Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });
