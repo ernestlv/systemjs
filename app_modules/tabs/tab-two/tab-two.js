@@ -1,9 +1,9 @@
 define([
-  "loader",
+  "app",
   "/app_modules/form/form-loader.js"
-], function(loader, form){
+], function(app, form){
   console.log("Executing Tab Two Module...");
 
-  loader.request_render(form, "#tab-two-body");
+  app.request_render(form, "#tab-two-body");
 
 });

@@ -1,10 +1,10 @@
 define([
-  "loader"
-], function(loader) {
+  "app"
+], function(app) {
 
       console.log("Executing Footer Loader...");
 
-      return loader.request_module({
+      return app.request_module({
         id: 'app-footer',
         htmlURL: '/app_modules/footer/footer.html',
         cssURL: '/app_modules/footer/footer.css'

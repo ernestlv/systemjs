@@ -7,6 +7,12 @@ body.modules-rendered {
   display:block;
 }
 
+button {
+  border: 1px solid gray;
+  background-color: lightblue;
+  color: black;
+}
+
 #app-header {
 
 }

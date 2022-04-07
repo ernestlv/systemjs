@@ -1,10 +1,10 @@
 define([
-  "loader"
-], function(loader, header, footer, menu) {
+  "app"
+], function(app, header, footer, menu) {
 
       console.log("Executing Tabs Loader...");
 
-      return loader.request_module({
+      return app.request_module({
         id: 'module-tabs',
         htmlURL: '/app_modules/tabs/tabs.html',
         cssURL: '/app_modules/tabs/tabs.css',

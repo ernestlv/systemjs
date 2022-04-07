@@ -1,14 +1,14 @@
 define([
-  "loader"
-], function(loader) {
+  "app"
+], function(app) {
 
       console.log("2 Executing Test Loader...");
 
-      loader.create_observable("msg").subscribe(function(value){
+      app.create_observable("msg").subscribe(function(value){
         alert(value);
       });
 
-      var modulePromise = loader.request_module({
+      var modulePromise = app.request_module({
         id:'module-index',
         htmlURL: '/app_modules/test/test.html',
         cssURL: '/app_modules/test/test.css',

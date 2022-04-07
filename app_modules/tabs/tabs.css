@@ -22,4 +22,10 @@
   border: 1px solid silver;
   border-bottom: 0;
   padding: 0 1rem;
+  color: silver;
+}
+
+#module-tabs div.tabs-list li.selectedTab {
+  background-color: silver;
+  color: white;
 }

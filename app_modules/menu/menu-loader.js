@@ -1,10 +1,10 @@
 define([
-  "loader"
-], function(loader) {
+  "app"
+], function(app) {
 
       console.log("Executing Menu Loader...");
 
-      return loader.request_module({
+      return app.request_module({
         id:'app-menu',
         htmlURL: '/app_modules/menu/menu.html',
         cssURL: '/app_modules/menu/menu.css'

@@ -13,7 +13,7 @@
       "imports":{
         "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
         "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
-        "loader":"/app_modules/loader.js"
+        "app":"/app_modules/app.js"
       }
     }
   </script>
@@ -29,17 +29,17 @@
   </div>
   <script>
     define([
-      "loader",
+      "app",
       "/app_modules/header/header-loader.js",
       "/app_modules/footer/footer-loader.js",
       "/app_modules/menu/menu-loader.js",
       "/app_modules/form/form-loader.js"
-    ], function(loader, header, footer, menu, form){
-      header = loader.request_render(header, "#app-header");
-      footer = loader.request_render(footer, "#app-footer");
-      menu = loader.request_render(menu, "#app-menu");
-      form = loader.request_render(form, "#app-content");
-      loader.ready([header, footer, menu, form], function(){
+    ], function(app, header, footer, menu, form){
+      header = app.request_render(header, "#app-header");
+      footer = app.request_render(footer, "#app-footer");
+      menu = app.request_render(menu, "#app-menu");
+      form = app.request_render(form, "#app-content");
+      app.ready([header, footer, menu, form], function(){
         console.log("11 Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });

@@ -3,7 +3,7 @@ define([
   "knockout"
 ], function($, KO) {
 
-      console.log("1 Executing Module Loader ...");
+      console.log("1 Executing Module app ...");
 
       var observables = {};
 

@@ -1,7 +1,7 @@
 define([
   "knockout",
-  "loader"
-], function(KO, loader){
+  "app"
+], function(KO, app){
 
   console.log("Executing Tabs Module...");
 
@@ -13,8 +13,8 @@ define([
         return Promise.resolve(index); //tab already loaded
       }
     }
-    var tabPromise = loader.request_module(selectedTab);
-    return loader.request_render(tabPromise, selector).then(function(renderedTabModule){
+    var tabPromise = app.request_module(selectedTab);
+    return app.request_render(tabPromise, selector).then(function(renderedTabModule){
       console.log("tab module rendered:", renderedTabModule);
       loadedTabs.push(index);
       return index;
@@ -25,7 +25,7 @@ define([
     var self = this;
     self.tabs = tabs;
     self.currentTab = KO.observable(-1);
-    self.selectTab = function(index, selector) {
+    self.selectTab = function(index, selector, evt) {
       var currentTab = self.currentTab();
       if (currentTab === index) {
         return; //tab already selected

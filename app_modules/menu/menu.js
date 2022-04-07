@@ -1,6 +1,5 @@
 define([
-  "loader"
-], function(loader) {
+], function() {
 
   console.log("Executing Menu Module...");
 
