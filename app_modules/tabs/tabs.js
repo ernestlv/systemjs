@@ -7,36 +7,34 @@ define([
 
   var loadedTabs = [];
 
-  function loadTab(selectedTab) {
+  function requestTab(index, selectedTab, selector) {
     for (var i=0; i<loadedTabs.length; i++) {
-      if (loadedTabs[i].index === selectedTab.index) {
+      if (loadedTabs[i] === index) {
         return Promise.resolve(selectedTab); //tab already loaded
       }
     }
-    console.log("requesting tab module:", selectedTab);
-    var tabModulePromise = loader.request_module(selectedTab);
-
-    return loader.request_render([tabModulePromise]).then(function(tabModule){
-      console.log("tab module rendered:", selectedTab, tabModule);
-      loadedTabs.push(selectedTab);
-      return selectedTab;
+    var tabPromise = loader.request_module(selectedTab);
+    return loader.request_render(tabPromise, selector).then(function(renderedTabModule){
+      console.log("tab module rendered:", renderedTabModule);
+      loadedTabs.push(index);
+      return index;
     });
   }
 
   return function TabsModel(tabs) {
     var self = this;
     self.tabs = tabs;
-    self.currentTab = KO.observable();
-    self.selectTab = function(selectedTab) {
-      console.log("selectedTab", selectedTab);
+    self.currentTab = KO.observable(-1);
+    self.selectTab = function(index, selector) {
       var currentTab = self.currentTab();
-      if (currentTab && currentTab.index === selectedTab.index) {
+      if (currentTab === index) {
         return; //tab already selected
       }
-      loadTab(selectedTab).then(function(selectedTab){
-        self.currentTab(selectedTab);
+      var selectedTab = self.tabs[index];
+      requestTab(index, selectedTab, selector).then(function(index){
+        self.currentTab(index);
       });
     };
-    self.selectTab(self.tabs[0]); //first tab default
+    self.selectTab(0, '#tab-one-content'); //first tab default
   };
 });

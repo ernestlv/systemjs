@@ -1,22 +1,21 @@
 <div id="module-tabs">
-  <div>
-    <a href="/">Back</a>
-  </div>
   <h2>Tabs</h2>
   <div class="tabs-list">
-    <ul data-bind="foreach: { data: tabs, as:'tab'}">
-      <li data-bind="text: tab.label, click:$parent.selectTab"></li>
+    <ul >
+      <li data-bind="click:function(){ selectTab(0, '#tab-one-content') }">One</li>
+      <li data-bind="click:function(){ selectTab(1, '#tab-two-content') }">Two</li>
+      <li data-bind="click:function(){ selectTab(2, '#tab-three-content') }">Three</li>
     </ul>
   </div>
   <div class="tabs-content" >
-    <div data-bind="visible: currentTab() && currentTab().index == 0">
-      <div id="module-tab-one"></div>
+    <div data-bind="visible:  currentTab() == 0">
+      <div id="tab-one-content"></div>
     </div>
-    <div data-bind="visible: currentTab() && currentTab().index == 1">
-      <div id="module-tab-two"></div>
+    <div data-bind="visible: currentTab() == 1">
+      <div id="tab-two-content"></div>
     </div>
-    <div data-bind="visible: currentTab() && currentTab().index == 2">
-      <div id="module-tab-three"></div>
+    <div  data-bind="visible: currentTab() == 2">
+      <div id="tab-three-content"></div>
     </div>
   </div>
   <div>

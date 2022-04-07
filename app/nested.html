@@ -35,7 +35,11 @@
       "/app_modules/menu/menu-loader.js",
       "/app_modules/nested/nested-loader.js"
     ], function(loader, header, footer, menu, nested){
-      loader.request_render([header, footer, menu, nested]).then(function(modules){
+      header = loader.request_render(header, "#app-header");
+      footer = loader.request_render(footer, "#app-footer");
+      menu = loader.request_render(menu, "#app-menu");
+      nested = loader.request_render(nested, "#app-content");
+      loader.ready([header, footer, menu, nested], function(){
         console.log("11 Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });

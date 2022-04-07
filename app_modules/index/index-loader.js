@@ -18,13 +18,12 @@ define([
             arg1:"Hello",
             arg2:"World!!!"
           }
-        },
-        elSelector: '#module-content'
+        }
       });
 
+      //module lazy loading
       modulePromise.then(function(indexModule){
-        console.log("9.2 request_module resolved for module:", indexModule.id);
-        //lazy loading
+        console.log("-- Lazy loading module:", "/app_modules/planet.js");
         System.import("/app_modules/planet.js").then(function(planetModule) {
           console.log("13 planet module resolver")
           var planet = planetModule.default;
@@ -35,5 +34,5 @@ define([
       });
 
       return modulePromise;
-      
+
 });

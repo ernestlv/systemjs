@@ -35,7 +35,11 @@
       "/app_modules/menu/menu-loader.js",
       "/app_modules/custom/custom-loader.js"
     ], function(loader, header, footer, menu, custom){
-      loader.request_render([header, footer, menu, custom]).then(function(modules){
+      header = loader.request_render(header, "#app-header");
+      footer = loader.request_render(footer, "#app-footer");
+      menu = loader.request_render(menu, "#app-menu");
+      custom = loader.request_render(custom, "#app-content");
+      loader.ready([header, footer, menu, custom], function(){
         console.log("11 Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });

@@ -8,8 +8,7 @@ define([
         id: 'module-nested',
         htmlURL: '/app_modules/nested/nested.html',
         cssURL: '/app_modules/nested/nested.css',
-        modelURL: '/app_modules/nested/nested.js',
-        elSelector: '#app-content'
+        modelURL: '/app_modules/nested/nested.js'
       });
 
 });

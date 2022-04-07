@@ -13,31 +13,21 @@ define([
           args:[
             {
               id:'module-tab-one',
-              index:0,
-              label:"one",
               htmlURL:"/app_modules/tabs/tab-one/tab-one.html",
-              modelURL:"/app_modules/tabs/tab-one/tab-one.js",
-              elSelector:"#module-tab-one"
+              modelURL:"/app_modules/tabs/tab-one/tab-one.js"
             },
             {
               id:'module-tab-two',
-              index:1,
-              label:"two",
               htmlURL:"/app_modules/tabs/tab-two/tab-two.html",
-              modelURL:"/app_modules/tabs/tab-two/tab-two.js",
-              elSelector:"#module-tab-two"
+              modelURL:"/app_modules/tabs/tab-two/tab-two.js"
             },
             {
               id:'module-tab-three',
-              index:2,
-              label:"three",
               htmlURL:"/app_modules/tabs/tab-three/tab-three.html",
-              modelURL:"/app_modules/tabs/tab-three/tab-three.js",
-              elSelector:"#module-tab-three"
+              modelURL:"/app_modules/tabs/tab-three/tab-three.js"
             }
           ]
-        },
-        elSelector: '#app-content'
+        }
       });
 
 });

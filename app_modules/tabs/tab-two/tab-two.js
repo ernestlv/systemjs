@@ -1,5 +1,9 @@
-define(["loader"], function(loader){
-  console.log("Tab Two Module loaded");
+define([
+  "loader",
+  "/app_modules/form/form-loader.js"
+], function(loader, form){
+  console.log("Executing Tab Two Module...");
 
-  return false;
+  loader.request_render(form, "#tab-two-body");
+
 });
