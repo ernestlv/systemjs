@@ -7,34 +7,41 @@ define([
 
   var loadedTabs = [];
 
-  function requestTab(index, selectedTab, selector) {
-    for (var i=0; i<loadedTabs.length; i++) {
-      if (loadedTabs[i] === index) {
-        return Promise.resolve(index); //tab already loaded
+  KO.bindingHandlers.request_tab_module =  {
+    init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+      return { controlsDescendantBindings: true};
+    },
+
+    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+      var currentTab = viewModel.currentTab();
+      var value = valueAccessor();
+      if (currentTab !== value) {
+        return; //abort binding wrong tab
       }
+      var index = loadedTabs.indexOf(value);
+      if (index !== -1) {
+        return; //abort binding tab already loaded
+      }
+      var module = viewModel.tabs[value];
+      var promiseModule = app.request_module(module);
+      app.request_render_child(promiseModule, element, bindingContext).then(function(module){
+        loadedTabs.push(value);
+        console.log("Tab was rendered", value);
+      });
     }
-    var tabPromise = app.request_module(selectedTab);
-    return app.request_render(tabPromise, selector).then(function(renderedTabModule){
-      console.log("tab module rendered:", renderedTabModule);
-      loadedTabs.push(index);
-      return index;
-    });
   }
 
   return function TabsModel(tabs) {
     var self = this;
     self.tabs = tabs;
     self.currentTab = KO.observable(-1);
-    self.selectTab = function(index, selector, evt) {
+    self.selectTab = function(index) {
       var currentTab = self.currentTab();
       if (currentTab === index) {
         return; //tab already selected
       }
-      var selectedTab = self.tabs[index];
-      requestTab(index, selectedTab, selector).then(function(index){
-        self.currentTab(index);
-      });
+      self.currentTab(index);
     };
-    self.selectTab(0, '#tab-one-content'); //first tab default
+    self.selectTab(0); //first tab default
   };
 });

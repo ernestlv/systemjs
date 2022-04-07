@@ -2,20 +2,20 @@
   <h2>Tabs</h2>
   <div class="tabs-list">
     <ul >
-      <li data-bind="css:{selectedTab: currentTab() == 0}, click:function(viewmodel, evt){ selectTab(0, '#tab-one-content', evt) }">Table</li>
-      <li data-bind="css:{selectedTab: currentTab() == 1}, click:function(viewmodel, evt){ selectTab(1, '#tab-two-content', evt) }">Form</li>
-      <li data-bind="css:{selectedTab: currentTab() == 2}, click:function(viewmodel, evt){ selectTab(2, '#tab-three-content', evt) }">Links</li>
+      <li data-bind="css:{selectedTab: currentTab() == 0}, click:function(){ selectTab(0) }">Table</li>
+      <li data-bind="css:{selectedTab: currentTab() == 1}, click:function(){ selectTab(1) }">Form</li>
+      <li data-bind="css:{selectedTab: currentTab() == 2}, click:function(){ selectTab(2) }">Links</li>
     </ul>
   </div>
   <div class="tabs-content" >
     <div data-bind="visible:  currentTab() == 0">
-      <div id="tab-one-content"></div>
+      <div id="tab-one-content" data-bind="request_tab_module: 0"></div>
     </div>
     <div data-bind="visible: currentTab() == 1">
-      <div id="tab-two-content"></div>
+      <div id="tab-two-content" data-bind="request_tab_module: 1"></div>
     </div>
     <div  data-bind="visible: currentTab() == 2">
-      <div id="tab-three-content"></div>
+      <div id="tab-three-content" data-bind="request_tab_module: 2"></div>
     </div>
   </div>
 </div>

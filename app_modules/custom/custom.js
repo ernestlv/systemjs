@@ -1,15 +1,9 @@
 define([
-  "knockout"
+  "knockout",
+  "custom-knockout-bindings"
 ], function(KO) {
 
   console.log("Custom Model loaded!!");
-
-  KO.bindingHandlers.upperX = { //custom binding
-    update: function(element, valueAccessor) {
-      var value = KO.unwrap(valueAccessor());
-      $(element).html(value.toUpperCase());
-    }
-  }
 
   return function CustomModel() {
     this.pageTitle = "Custom";
