@@ -2,7 +2,7 @@ define([
   "loader"
 ], function(loader) {
 
-      console.log("2 Executing Index Loader...");
+      console.log("2 Executing Test Loader...");
 
       loader.create_observable("msg").subscribe(function(value){
         alert(value);
@@ -10,10 +10,10 @@ define([
 
       var modulePromise = loader.request_module({
         id:'module-index',
-        htmlURL: '/app_modules/index/index.html',
-        cssURL: '/app_modules/index/index.css',
+        htmlURL: '/app_modules/test/test.html',
+        cssURL: '/app_modules/test/test.css',
         viewModel: {
-          url: '/app_modules/index/index.js',
+          url: '/app_modules/test/test.js',
           args: {
             arg1:"Hello",
             arg2:"World!!!"
@@ -22,15 +22,15 @@ define([
       });
 
       //module lazy loading
-      modulePromise.then(function(indexModule){
+      modulePromise.then(function(testModule){
         console.log("-- Lazy loading module:", "/app_modules/planet.js");
         System.import("/app_modules/planet.js").then(function(planetModule) {
           console.log("13 planet module resolver")
           var planet = planetModule.default;
-          var viewModel = indexModule.viewModel;
+          var viewModel = testModule.viewModel;
           viewModel.planet(planet.name);
         });
-        return indexModule;
+        return testModule;
       });
 
       return modulePromise;

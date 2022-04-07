@@ -19,7 +19,7 @@
   </script>
 </head>
 <body>
-  <div id="page-main" class="page-content">
+  <div id="page-test" class="page-content">
     <div id="app-header"></div>
     <div id="app-body">
       <div id="app-menu"></div>
@@ -33,16 +33,18 @@
       "/app_modules/header/header-loader.js",
       "/app_modules/footer/footer-loader.js",
       "/app_modules/menu/menu-loader.js",
-      "/app_modules/main/main-loader.js"
-    ],function(loader, header, footer, menu, main){
+      "/app_modules/test/test-loader.js"
+    ], function(loader, header, footer, menu, test){
       header = loader.request_render(header, "#app-header");
       footer = loader.request_render(footer, "#app-footer");
       menu = loader.request_render(menu, "#app-menu");
-      main = loader.request_render(main, "#app-content");
-      loader.ready([header, footer, menu, main], function(){
+      test = loader.request_render(test, '#app-content');
+      loader.ready([header, footer, menu, test], function(){
         console.log("11 Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });
+      console.log("4 Page Modules Requested.");
+      $(document.body).addClass("modules-requested");
     });
   </script>
 </body>

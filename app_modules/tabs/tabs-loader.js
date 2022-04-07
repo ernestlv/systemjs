@@ -8,7 +8,7 @@ define([
         id: 'module-tabs',
         htmlURL: '/app_modules/tabs/tabs.html',
         cssURL: '/app_modules/tabs/tabs.css',
-        viewModelURL: {
+        viewModel: {
           url:'/app_modules/tabs/tabs.js',
           args:[
             {

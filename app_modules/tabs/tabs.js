@@ -10,7 +10,7 @@ define([
   function requestTab(index, selectedTab, selector) {
     for (var i=0; i<loadedTabs.length; i++) {
       if (loadedTabs[i] === index) {
-        return Promise.resolve(selectedTab); //tab already loaded
+        return Promise.resolve(index); //tab already loaded
       }
     }
     var tabPromise = loader.request_module(selectedTab);
