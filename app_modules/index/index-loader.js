@@ -12,7 +12,7 @@ define([
         id:'module-index',
         htmlURL: '/app_modules/index/index.html',
         cssURL: '/app_modules/index/index.css',
-        modelURL: {
+        viewModel: {
           url: '/app_modules/index/index.js',
           args: {
             arg1:"Hello",

@@ -7,7 +7,7 @@ define([
         id:'module-list',
         htmlURL: '/app_modules/list/list.html',
         cssURL: '/app_modules/list/list.css',
-        modelURL: '/app_modules/list/list.js'
+        viewModelURL: '/app_modules/list/list.js'
       });
 
 });

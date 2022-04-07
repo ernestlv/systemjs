@@ -8,7 +8,7 @@ define([
         id:'module-form',
         htmlURL: '/app_modules/form/form.html',
         cssURL: '/app_modules/form/form.css',
-        modelURL: '/app_modules/form/form.js'
+        viewModelURL: '/app_modules/form/form.js'
       });
 
 });

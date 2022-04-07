@@ -7,7 +7,7 @@ define([
         id:'module-main',
         htmlURL: '/app_modules/main/main.html',
         cssURL: '/app_modules/main/main.css'
-        //modelURL: '/app_modules/main/main.js'
+        //viewModelURL: '/app_modules/main/main.js'
       });
 
 });

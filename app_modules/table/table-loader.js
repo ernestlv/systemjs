@@ -7,7 +7,7 @@ define([
         id: 'module-table',
         htmlURL: '/app_modules/table/table.html',
         cssURL: '/app_modules/table/table.css',
-        modelURL: '/app_modules/table/table.js'
+        viewModelURL: '/app_modules/table/table.js'
       });
 
 });
