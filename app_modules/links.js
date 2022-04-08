@@ -11,8 +11,4 @@ define([
         alert($(this).children().attr('href'))
       });
 
-      $(document.body).on('click', function(){
-        alert("page click!")
-      });
-
 });

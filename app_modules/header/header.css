@@ -1,8 +1,4 @@
-#module-header {
-  border-bottom: 1px solid gray;
-  padding-bottom: 0.5rem;
-}
-
-#module-header {
+#module-header h1 {
+  margin:2rem 0;
   color:silver;
 }

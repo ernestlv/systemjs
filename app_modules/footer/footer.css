@@ -1,8 +1,4 @@
-#module-footer {
-  border-top: 1px solid gray;
-  padding-top: 0.5rem;
-}
-
-#module-footer span {
-    color:silver;
+#module-footer div{
+  color:silver;
+  margin: 0.5rem 0;
 }

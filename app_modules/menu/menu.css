@@ -1,6 +1,7 @@
 #module-menu {
-  border-right: 1px solid gray;
+  height: 100%;
   padding: 0.5rem 0.5rem 0.5rem 0;
+  box-sizing: border-box;
 }
 
 #module-menu h2 {
