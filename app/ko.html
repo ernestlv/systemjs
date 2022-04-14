@@ -9,17 +9,17 @@
   <script type="text/javascript" src="/node_modules/systemjs/dist/extras/amd.js"></script>
   <!-- <script type="text/javascript" src="node_modules/typescript/lib/typescript.js"></script> -->
   <script type="systemjs-importmap">
-  {
-    "imports":{
-      "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
-      "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
-      "app":"/app_modules/app.js"
+    {
+      "imports":{
+        "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
+        "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
+        "app":"/app_modules/app.js"
+      }
     }
-  }
   </script>
 </head>
 <body>
-  <div id="page-list" class="page-content">
+  <div id="page-ko" class="page-content">
     <div id="app-header"></div>
     <div id="app-body">
       <div id="app-menu"></div>
@@ -33,13 +33,13 @@
       "/app_modules/header/header-loader.js",
       "/app_modules/footer/footer-loader.js",
       "/app_modules/menu/menu-loader.js",
-      "/app_modules/list/list-loader.js"
-    ], function(app, header, footer, menu, list){
+      "/app_modules/ko/ko-loader.js"
+    ], function(app, header, footer, menu, ko){
       header = app.request_render(header, "#app-header");
       footer = app.request_render(footer, "#app-footer");
       menu = app.request_render(menu, "#app-menu");
-      list = app.request_render(list, "#app-content");
-      app.ready([header, footer, menu, list], function(){
+      test = app.request_render(ko, '#app-content');
+      app.ready([header, footer, menu, ko], function(){
         console.log("11 Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });

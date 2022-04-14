@@ -1,7 +1,16 @@
 #module-menu {
+
   height: 100%;
   padding: 0.5rem;
   box-sizing: border-box;
+}
+
+#module-menu:not(.collapse) {
+  width: 13rem;
+}
+
+#module-menu.collapse {
+  width: 2rem;
 }
 
 #module-menu h2 {
@@ -9,8 +18,20 @@
   color:silver;
 }
 
+#module-menu #menu-header button {
+  float: right;
+}
+
 #module-menu ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+#module-menu.collapse h2 {
+  display: none;
+}
+
+#module-menu.collapse ul {
+  display: none;
 }

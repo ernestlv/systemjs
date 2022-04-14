@@ -2,9 +2,9 @@
   <h2>Tabs</h2>
   <div class="tabs-list">
     <ul >
-      <li data-bind="css:{selectedTab: currentTab() == 0}, click:function(){ selectTab(0) }">Table</li>
-      <li data-bind="css:{selectedTab: currentTab() == 1}, click:function(){ selectTab(1) }">Form</li>
-      <li data-bind="css:{selectedTab: currentTab() == 2}, click:function(){ selectTab(2) }">Links</li>
+      <li data-bind="css:{active: currentTab() == 0}"><button data-bind="click:function(){ selectTab(0) }">Table</button></li>
+      <li data-bind="css:{active: currentTab() == 1}"><button data-bind="click:function(){ selectTab(1) }">Form</button></li>
+      <li data-bind="css:{active: currentTab() == 2}"><button data-bind="click:function(){ selectTab(2) }">Links</button></li>
     </ul>
   </div>
   <div class="tabs-content" >

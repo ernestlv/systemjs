@@ -33,11 +33,10 @@ button {
 }
 
 #app-body #app-menu {
-  flex-grow: 1;
   border-right: 1px solid gray;
 
 }
 
 #app-body #app-content {
-  flex-grow: 7;
+  flex-basis: 100%;
 }

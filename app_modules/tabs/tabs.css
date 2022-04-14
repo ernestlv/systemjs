@@ -19,13 +19,14 @@
 
 #module-tabs div.tabs-list li {
   display: inline;
-  border: 1px solid silver;
-  border-bottom: 0;
-  padding: 0 1rem;
-  color: silver;
 }
 
-#module-tabs div.tabs-list li.selectedTab {
-  background-color: silver;
-  color: white;
+#module-tabs div.tabs-list button {
+  width: 5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+#module-tabs div.tabs-list li.active button::before {
+  content: '> ';
 }
