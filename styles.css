@@ -13,10 +13,8 @@ body.modules-rendered {
   bottom: 0;
 }
 
-button {
-  border: 1px solid gray;
-  background-color: lightblue;
-  color: black;
+body .page-content {
+  height: 100%;
 }
 
 #app-header {
@@ -26,10 +24,15 @@ button {
 #app-body {
   display:flex;
   align-items: stretch;
+  height: 85%;
 }
 
 #app-footer {
   border-top: 1px solid gray;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
 }
 
 #app-body #app-menu {
@@ -39,4 +42,10 @@ button {
 
 #app-body #app-content {
   flex-basis: 100%;
+}
+
+button {
+  border: 1px solid gray;
+  background-color: lightblue;
+  color: black;
 }
