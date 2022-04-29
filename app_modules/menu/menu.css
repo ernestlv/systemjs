@@ -1,8 +1,8 @@
 #module-menu {
-
   height: 100%;
   padding: 0.5rem;
   box-sizing: border-box;
+  border-right: 1px solid silver;
 }
 
 #module-menu:not(.collapse) {

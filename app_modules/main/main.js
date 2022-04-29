@@ -5,9 +5,9 @@ define([
   console.log("7 Executing main Module...");
 
   return {
-    message:"Main Context!!!",
+    message:"Hello World!!!",
     childContext:{
-      message:"Child Context!!!"
+      message:"Hello from child context!!!"
     }
   }
 

@@ -1,3 +1,7 @@
+#module-footer {
+  overflow: hidden; /* see header.css */
+  border-top: 1px solid silver;
+}
 #module-footer div{
   color:silver;
   margin: 0.5rem 0;
