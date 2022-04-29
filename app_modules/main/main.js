@@ -6,7 +6,7 @@ define([
 
   return {
     message:"Main Context!!!",
-    secondContext:{
+    childContext:{
       message:"Child Context!!!"
     }
   }
