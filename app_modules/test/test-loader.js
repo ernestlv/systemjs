@@ -1,15 +1,15 @@
 define([
-  "app"
-], function(app) {
+  "loader"
+], function(loader) {
 
       console.log("2 Executing Test Loader...");
 
-      app.create_observable("msg").subscribe(function(value){
-        alert(value);
+      loader.create_observable("msg").subscribe(function(value){
+        alert(value); //see test.js
       });
 
-      var modulePromise = app.request_module({
-        id:'module-index',
+      var modulePromise = loader.request_module({
+        id:'module-test',
         htmlURL: '/app_modules/test/test.html',
         cssURL: '/app_modules/test/test.css',
         viewModel: {
@@ -21,14 +21,14 @@ define([
         }
       });
 
-      //module lazy loading
+      //lazy loading module
       modulePromise.then(function(testModule){
         console.log("-- Lazy loading module:", "/app_modules/planet.js");
         System.import("/app_modules/planet.js").then(function(planetModule) {
-          console.log("13 planet module resolver")
+          console.log("13 planet module resolved")
           var planet = planetModule.default;
           var viewModel = testModule.viewModel;
-          viewModel.planet(planet.name);
+          viewModel.planet(planet.name); //observer
         });
         return testModule;
       });

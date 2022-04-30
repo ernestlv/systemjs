@@ -1,15 +1,23 @@
 #module-menu {
-  height: 100%;
+  display:flex;
+}
+
+#module-menu #app-menu {
   padding: 0.5rem;
   box-sizing: border-box;
   border-right: 1px solid silver;
 }
 
-#module-menu:not(.collapse) {
+#module-menu #app-content {
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+#module-menu #app-menu:not(.collapse) {
   width: 13rem;
 }
 
-#module-menu.collapse {
+#module-menu #app-menu.collapse {
   width: 2rem;
 }
 
@@ -28,10 +36,10 @@
   padding: 0;
 }
 
-#module-menu.collapse h2 {
+#module-menu #app-menu.collapse h2 {
   display: none;
 }
 
-#module-menu.collapse ul {
+#module-menu #app-menu.collapse ul {
   display: none;
 }

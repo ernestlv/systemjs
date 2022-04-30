@@ -1,13 +1,13 @@
 define([
   "knockout",
-  "app",
+  "loader",
   "/app_modules/person.js",
   "/app_modules/car.js"
-], function(KO, app, Person, car) {
+], function(KO, loader, Person, car) {
 
   console.log("7 Executing Test Module...");
 
-  var msg = app.get_observable("msg");
+  var msg = loader.get_observable("msg"); //see test-loader.js
 
   var person = new Person();
 

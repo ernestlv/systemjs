@@ -107,6 +107,22 @@ define([
         });
       }
 
+      function request_render_submodule(modulePromise, submoduleURL, selector ) {
+        modulePromise = !modulePromise ? Promise.resolve() : modulePromise;
+        return modulePromise.then(function(module){
+          console.log("-- requesting submodule", submoduleURL);
+          return System.import(submoduleURL).then(function(subModule) {
+            console.log("-- submodule", submoduleURL, "resolved.");
+            var submodule = subModule.default;
+            var el = document.querySelector(selector);
+            return request_render_child(submodule, el).then(function(submodule){
+              console.log("-- submodule", submoduleURL, "rendered.");
+              return subModule.default;
+            });
+          });
+        });
+      }
+
       function ready(promiseModules, callback) {
         Promise.all(promiseModules).then(callback);
       }
@@ -126,6 +142,36 @@ define([
         return observables[id];
       }
 
+      function request_content(contentURL) {
+        console.log("Requesting module header");
+        var header = System.import('/app_modules/header/header-loader.js').then(function(module){
+          return module.default;
+        });
+        console.log("Requesting module footer");
+        var footer = System.import('/app_modules/footer/footer-loader.js').then(function(module){
+          return module.default;
+        });
+        /*
+         * Request menu and content modules to inject in app body
+         */
+        var body = request_module({
+          id:'module-menu',
+          htmlURL: '/app_modules/menu/menu.html',
+          cssURL: '/app_modules/menu/menu.css',
+          viewModel: {
+            url: '/app_modules/menu/menu.js',
+            args: {
+              url: contentURL,
+              selector: '#app-content'
+            }
+          }
+        });
+        header = request_render(header, "#app-header");
+        footer = request_render(footer, "#app-footer");
+        body = request_render(body, '#app-body');
+        return [header, footer, body];
+      }
+
       //ajax request html fragment and injects it in element def by selector
       return {
         request_module,
@@ -134,12 +180,16 @@ define([
 
         request_render_child,
 
+        request_render_submodule,
+
         ready,
 
         has_observable,
 
         create_observable,
 
-        get_observable
+        get_observable,
+
+        request_content
       };
 });

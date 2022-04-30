@@ -13,37 +13,30 @@
       "imports":{
         "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
         "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
-        "app":"/app_modules/app.js"
+        "loader":"/app_modules/loader.js"
       }
     }
   </script>
 </head>
 <body>
-  <div id="page-main" class="page-content">
+  <div id="page-form" class="page-content">
     <div id="app-header"></div>
-    <div id="app-body">
-      <div id="app-menu"></div>
-      <div id="app-content"></div>
-    </div>
+    <div id="app-body"></div>
     <div id="app-footer"></div>
   </div>
   <script>
     define([
-      "app",
-      "/app_modules/header/header-loader.js",
-      "/app_modules/footer/footer-loader.js",
-      "/app_modules/menu/menu-loader.js",
-      "/app_modules/form/form-loader.js"
-    ], function(app, header, footer, menu, form){
-      header = app.request_render(header, "#app-header");
-      footer = app.request_render(footer, "#app-footer");
-      menu = app.request_render(menu, "#app-menu");
-      form = app.request_render(form, "#app-content");
-      app.ready([header, footer, menu, form], function(){
+      "loader"
+    ], function(loader){
+      var page = loader.request_content('/app_modules/form/form-loader.js');
+      loader.ready(page, function(){
         console.log("11 Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });
+      console.log("4 Page Modules Requested.");
+      $(document.body).addClass("modules-requested");
     });
   </script>
+
 </body>
 </html>
