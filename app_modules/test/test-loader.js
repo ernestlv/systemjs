@@ -2,7 +2,7 @@ define([
   "loader"
 ], function(loader) {
 
-      console.log("2 Executing Test Loader...");
+      console.log("Executing Test Loader...");
 
       loader.create_observable("msg").subscribe(function(value){
         alert(value); //see test.js
@@ -23,9 +23,9 @@ define([
 
       //lazy loading module
       modulePromise.then(function(testModule){
-        console.log("-- Lazy loading module:", "/app_modules/planet.js");
+        console.log("lazy loading module:", "/app_modules/planet.js");
         System.import("/app_modules/planet.js").then(function(planetModule) {
-          console.log("13 planet module resolved")
+          console.log("planet module resolved")
           var planet = planetModule.default;
           var viewModel = testModule.viewModel;
           viewModel.planet(planet.name); //observer

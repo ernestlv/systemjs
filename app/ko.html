@@ -40,7 +40,7 @@
       menu = app.request_render(menu, "#app-menu");
       test = app.request_render(ko, '#app-content');
       app.ready([header, footer, menu, ko], function(){
-        console.log("11 Page Modules Rendered.");
+        console.log("Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });
     });

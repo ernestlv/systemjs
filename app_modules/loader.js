@@ -3,7 +3,7 @@ define([
   "knockout"
 ], function($, KO) {
 
-      console.log("1 Executing Module app loader ...");
+      console.log("Executing Module app loader ...");
 
       var observables = {};
 
@@ -11,7 +11,7 @@ define([
         var htmlPromise, cssPromise, viewModelPromise, argsPromise
         var {id, htmlURL, cssURL, viewModelURL, viewModel} = dependencies;
 
-        console.log("3 Requesting Module:", id, htmlURL, cssURL, viewModelURL, viewModel);
+        console.log("Requesting Module:", id, htmlURL, cssURL, viewModelURL, viewModel);
 
         if (htmlURL) {
           htmlPromise = $.ajax({
@@ -34,13 +34,13 @@ define([
         if (viewModel || viewModelURL) {
           if (typeof viewModelURL === "string") {
             viewModelPromise = System.import(viewModelURL).then(function(module){
-              console.log("8 request_module: viewModelURL resolved for:", viewModelURL);
+              console.log("request_module: viewModelURL resolved for:", viewModelURL);
               return module.default;
             });
             argsPromise = Promise.resolve(undefined);
           } else {
             viewModelPromise = System.import(viewModel.url).then(function(module){
-              console.log("8 request_module: viewModel resolved for:", viewModel);
+              console.log("request_module: viewModel resolved for:", viewModel);
               return module.default;
             });
             argsPromise = Promise.resolve(viewModel.args);
@@ -51,10 +51,10 @@ define([
         }
 
         return Promise.all([htmlPromise, cssPromise, viewModelPromise, argsPromise]).then(function([html, css, ViewModel, args]){
-          console.log("9 request_module: html, css, model dependencies resolved for module:", id);
+          console.log("request_module: html, css, model dependencies resolved for module:", id);
           var viewModel;
           if (ViewModel) {
-            console.log("9.1 Creating viewModel:", id, ViewModel);
+            console.log("creating viewModel:", id, ViewModel);
             if (typeof ViewModel === "function") { //true if model module returns a function
               viewModel = new ViewModel(args);
             } else {
@@ -66,9 +66,9 @@ define([
       }
 
       function request_render(promiseModule, selector) { //module to render and element selector
-        console.log("5 request_render: For ", selector);
+        console.log("request_render: For ", selector);
         return promiseModule.then(function(module){
-          console.log("10 Rendering Module:", module.id);
+          console.log("rendering Module:", module.id);
           var el = document.querySelector(selector);
           var { html, css, viewModel } =  module;
           el && css && $(el).append('<style type="text/css">' + css + '</style>');
@@ -85,9 +85,9 @@ define([
       }
 
       function request_render_child(promiseModule, el, bindingContext) { //module to render in element selector
-        console.log("- request_render_child: For ", el);
+        console.log("request_render_child: For ", el);
         return promiseModule.then(function(module){
-          console.log(" Rendering Child Module:", module.id);
+          console.log("rendering child module:", module.id);
           var { html, css, viewModel } =  module;
           el && css && $(el).append('<style type="text/css">' + css + '</style>');
           el && html && $(el).append(html);
@@ -110,13 +110,13 @@ define([
       function request_render_submodule(modulePromise, submoduleURL, selector ) {
         modulePromise = !modulePromise ? Promise.resolve() : modulePromise;
         return modulePromise.then(function(module){
-          console.log("-- requesting submodule", submoduleURL);
+          console.log("requesting submodule", submoduleURL);
           return System.import(submoduleURL).then(function(subModule) {
-            console.log("-- submodule", submoduleURL, "resolved.");
+            console.log("submodule", submoduleURL, "resolved.");
             var submodule = subModule.default;
             var el = document.querySelector(selector);
             return request_render_child(submodule, el).then(function(submodule){
-              console.log("-- submodule", submoduleURL, "rendered.");
+              console.log("submodule", submoduleURL, "rendered.");
               return subModule.default;
             });
           });
@@ -143,13 +143,17 @@ define([
       }
 
       function request_content(contentURL) {
-        console.log("Requesting module header");
-        var header = System.import('/app_modules/header/header-loader.js').then(function(module){
-          return module.default;
+        var header = request_module({
+          id: 'module-header',
+          htmlURL: '/app_modules/header/header.html',
+          cssURL: '/app_modules/header/header.css',
+          viewModelURL: '/app_modules/header/header.js'
         });
-        console.log("Requesting module footer");
-        var footer = System.import('/app_modules/footer/footer-loader.js').then(function(module){
-          return module.default;
+        var footer = request_module({
+          id: 'module-footer',
+          htmlURL: '/app_modules/footer/footer.html',
+          cssURL: '/app_modules/footer/footer.css',
+          viewModelURL: '/app_modules/footer/footer.js'
         });
         /*
          * Request menu and content modules to inject in app body

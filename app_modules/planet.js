@@ -1,5 +1,5 @@
 define(function(){
-  console.log("12 Executing Planet Module...");
+  console.log("Executing Planet Module...");
 
   return {
     name: "Earth!"

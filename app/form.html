@@ -30,10 +30,10 @@
     ], function(loader){
       var page = loader.request_content('/app_modules/form/form-loader.js');
       loader.ready(page, function(){
-        console.log("11 Page Modules Rendered.");
+        console.log("Page Modules Rendered.");
         $(document.body).addClass("modules-rendered");
       });
-      console.log("4 Page Modules Requested.");
+      console.log("Page Modules Requested.");
       $(document.body).addClass("modules-requested");
     });
   </script>

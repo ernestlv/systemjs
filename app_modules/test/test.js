@@ -5,7 +5,7 @@ define([
   "/app_modules/car.js"
 ], function(KO, loader, Person, car) {
 
-  console.log("7 Executing Test Module...");
+  console.log("Executing Test Module...");
 
   var msg = loader.get_observable("msg"); //see test-loader.js
 

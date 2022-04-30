@@ -1,7 +1,7 @@
 define([
   "loader"
 ], function(loader, header, footer, menu) {
-      console.log("2 Executing Main Loader...");
+      console.log("Executing Main Loader...");
 
       return loader.request_module({
         id:'module-main',

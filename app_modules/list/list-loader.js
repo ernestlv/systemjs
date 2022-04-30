@@ -1,9 +1,9 @@
 define([
-  "app"
-], function(app, header, footer, menu) {
+  "loader"
+], function(loader) {
       console.log("List Loader created!");
 
-      return app.request_module({
+      return loader.request_module({
         id:'module-list',
         htmlURL: '/app_modules/list/list.html',
         cssURL: '/app_modules/list/list.css',

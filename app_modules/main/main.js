@@ -2,7 +2,7 @@ define([
     "custom-knockout-bindings"
 ], function() {
 
-  console.log("7 Executing main Module...");
+  console.log("Executing main Module...");
 
   return {
     message:"Hello World!!!",
