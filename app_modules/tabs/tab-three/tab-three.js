@@ -1,6 +1,5 @@
 define([
-  "app"
-], function(app){
+], function(){
   console.log("Executing Tab Three Module...");
 
   System.import('/app_modules/links.js').then(function(module){

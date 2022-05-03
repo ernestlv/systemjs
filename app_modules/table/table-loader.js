@@ -1,9 +1,9 @@
 define([
-  "app"
-], function(app, header, footer, menu) {
+  "loader"
+], function(loader) {
       console.log("Executing Table Loader...");
 
-      return app.request_module({
+      return loader.request_module({
         id: 'module-table',
         htmlURL: '/app_modules/table/table.html',
         cssURL: '/app_modules/table/table.css',

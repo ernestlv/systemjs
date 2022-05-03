@@ -11,10 +11,22 @@ body.modules-rendered {
 #app-header {
 }
 
+#app-footer {
+}
+
 #app-body {
 }
 
-#app-footer {
+#app-body {
+}
+
+#app-body #app-menu {
+}
+
+#app-body #app-content {
+  padding: 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 button {

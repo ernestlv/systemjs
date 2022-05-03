@@ -1,7 +1,8 @@
 define([
   "jquery",
-  "knockout"
-], function($, KO) {
+  "knockout",
+  "loader"
+], function($, KO, loader) {
 
       console.log("Exectuing custom knockout bindings Module...");
 

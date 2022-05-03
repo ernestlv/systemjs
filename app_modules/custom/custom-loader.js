@@ -1,10 +1,10 @@
 define([
-  "app"
-], function(app) {
+  "loader"
+], function(loader) {
 
       console.log("Custom Loader created!");
 
-      return app.request_module({
+      return loader.request_module({
         id:'module-custom',
         htmlURL: '/app_modules/custom/custom.html',
         cssURL: '/app_modules/custom/custom.css',

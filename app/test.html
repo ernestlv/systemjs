@@ -20,21 +20,23 @@
 </head>
 <body>
   <div id="page-test" class="page-content">
-    <div id="app-header"></div>
-    <div id="app-body"></div>
-    <div id="app-footer"></div>
+    <div id="app-header" data-bind="request_submodule: '/app_modules/header/header-loader.js'"></div>
+    <div id="app-body" style="display: flex">
+      <div id="app-menu" data-bind="request_submodule: '/app_modules/menu/menu-loader.js'"></div>
+      <div id="app-content" data-bind="request_submodule: '/app_modules/test/test-loader.js'"></div>
+    </div>
+    <div id="app-footer" data-bind="request_submodule: '/app_modules/footer/footer-loader.js'"></div>
   </div>
   <script>
     define([
+      "knockout",
       "loader"
-    ], function(loader){
-      var page = loader.request_content('/app_modules/test/test-loader.js');
-      loader.ready(page, function(){
-        console.log("Page Modules Rendered.");
+    ], function(KO, loader){
+      KO.applyBindings({});
+      loader.when_submodule_ready("module-test", function(submodule) {
+        console.log("Page app-content rendered:", submodule);
         $(document.body).addClass("modules-rendered");
       });
-      console.log("Page Modules Requested.");
-      $(document.body).addClass("modules-requested");
     });
   </script>
 </body>

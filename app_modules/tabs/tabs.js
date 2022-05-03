@@ -1,7 +1,7 @@
 define([
   "knockout",
-  "app"
-], function(KO, app){
+  "loader"
+], function(KO, loader){
 
   console.log("Executing Tabs Module...");
 
@@ -23,22 +23,22 @@ define([
         return; //abort binding tab already loaded
       }
       var module = viewModel.tabs[value];
-      var promiseModule = app.request_module(module);
-      app.request_render_child(promiseModule, element, bindingContext).then(function(module){
+      var promiseModule = loader.request_module(module);
+      loader.request_render_child(promiseModule, element, bindingContext).then(function(module){
         loadedTabs.push(value);
         console.log("Tab was rendered", value);
       });
     }
   }
 
-  var changeTab = app.create_observable("changeTab");
+  var changeTab = loader.create_observable("changeTab");
 
   function click(){
    alert("page click!");
   }
 
 
-  var changeTab = app.get_observable("changeTab");
+  var changeTab = loader.get_observable("changeTab");
 
   changeTab.subscribe(function(value) {
     console.log("changeTab:", value);

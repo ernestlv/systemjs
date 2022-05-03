@@ -1,24 +1,8 @@
 #module-menu {
-  display:flex;
-}
-
-#module-menu #app-menu {
   padding: 0.5rem;
   box-sizing: border-box;
   border-right: 1px solid silver;
-}
-
-#module-menu #app-content {
-  padding: 0.5rem;
-  box-sizing: border-box;
-}
-
-#module-menu #app-menu:not(.collapse) {
-  width: 13rem;
-}
-
-#module-menu #app-menu.collapse {
-  width: 2rem;
+  height: 100%;
 }
 
 #module-menu h2 {
@@ -36,10 +20,18 @@
   padding: 0;
 }
 
-#module-menu #app-menu.collapse h2 {
+#module-menu:not(.collapse) {
+  width: 13rem;
+}
+
+#module-menu.collapse {
+  width: 2.5rem;
+}
+
+#module-menu.collapse h2 {
   display: none;
 }
 
-#module-menu #app-menu.collapse ul {
+#module-menu.collapse ul {
   display: none;
 }

@@ -1,9 +1,10 @@
 define([
+  "jquery",
   "knockout",
   "loader",
   "/app_modules/person.js",
   "/app_modules/car.js"
-], function(KO, loader, Person, car) {
+], function($, KO, loader, Person, car) {
 
   console.log("Executing Test Module...");
 

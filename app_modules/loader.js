@@ -7,11 +7,25 @@ define([
 
       var observables = {};
 
+      function create_viewmodel(id, [htmlPromise, cssPromise, viewModelPromise, argsPromise]) {
+        return Promise.all([htmlPromise, cssPromise, viewModelPromise, argsPromise]).then(function([html, css, ViewModel, args]){
+          console.log("creating viewModel:", id, ViewModel);
+          if (ViewModel) {
+            if (typeof ViewModel === "function") { //true if model module returns a function
+              var viewModel = new ViewModel(args);
+            } else {
+              var viewModel = ViewModel;
+            }
+          }
+          return { id, html, css, viewModel };
+        });
+      }
+
       function request_module(dependencies) {
         var htmlPromise, cssPromise, viewModelPromise, argsPromise
         var {id, htmlURL, cssURL, viewModelURL, viewModel} = dependencies;
 
-        console.log("Requesting Module:", id, htmlURL, cssURL, viewModelURL, viewModel);
+        console.log("requesting module:", id, htmlURL, cssURL, viewModelURL, viewModel);
 
         if (htmlURL) {
           htmlPromise = $.ajax({
@@ -49,20 +63,7 @@ define([
           viewModelPromise = Promise.resolve(undefined);
           argsPromise = Promise.resolve(undefined);
         }
-
-        return Promise.all([htmlPromise, cssPromise, viewModelPromise, argsPromise]).then(function([html, css, ViewModel, args]){
-          console.log("request_module: html, css, model dependencies resolved for module:", id);
-          var viewModel;
-          if (ViewModel) {
-            console.log("creating viewModel:", id, ViewModel);
-            if (typeof ViewModel === "function") { //true if model module returns a function
-              viewModel = new ViewModel(args);
-            } else {
-              viewModel = ViewModel;
-            }
-          }
-          return { id, html, css, viewModel };
-        });
+        return create_viewmodel(id, [htmlPromise, cssPromise, viewModelPromise, argsPromise]);
       }
 
       function request_render(promiseModule, selector) { //module to render and element selector
@@ -85,18 +86,21 @@ define([
       }
 
       function request_render_child(promiseModule, el, bindingContext) { //module to render in element selector
+        if (!el) {
+          return Promise.resolve();
+        }
         console.log("request_render_child: For ", el);
         return promiseModule.then(function(module){
           console.log("rendering child module:", module.id);
           var { html, css, viewModel } =  module;
-          el && css && $(el).append('<style type="text/css">' + css + '</style>');
-          el && html && $(el).append(html);
-          if (el && viewModel) {
+          css && $(el).append('<style type="text/css">' + css + '</style>');
+          html && $(el).append(html);
+          if (viewModel) {
             try {
               var childContext = viewModel;
               if (bindingContext) {
                 childContext = bindingContext.createChildContext(viewModel);
-                console.log("created new knockout child context:", childContext);
+                console.log("created new knockout child context:", childContext, "for", viewModel);
               }
                KO.applyBindingsToDescendants(childContext, el);
             } catch(e) {
@@ -107,17 +111,19 @@ define([
         });
       }
 
-      function request_render_submodule(modulePromise, submoduleURL, selector ) {
+      function request_render_submodule(modulePromise, submoduleURL, el, bindingContext) {
+        if (!el) {
+          return Promise.resolve();
+        }
         modulePromise = !modulePromise ? Promise.resolve() : modulePromise;
         return modulePromise.then(function(module){
           console.log("requesting submodule", submoduleURL);
           return System.import(submoduleURL).then(function(subModule) {
             console.log("submodule", submoduleURL, "resolved.");
-            var submodule = subModule.default;
-            var el = document.querySelector(selector);
-            return request_render_child(submodule, el).then(function(submodule){
+            var submodulePromise = subModule.default;
+            return request_render_child(submodulePromise, el, bindingContext).then(function(submodule){
               console.log("submodule", submoduleURL, "rendered.");
-              return subModule.default;
+              return submodule;
             });
           });
         });
@@ -132,7 +138,7 @@ define([
       }
 
       function create_observable(id, value) {
-        if (!this.has_observable(id)) {
+        if (!has_observable(id)) {
           observables[id] = KO.observable(value);
         }
         return observables[id];
@@ -142,7 +148,7 @@ define([
         return observables[id];
       }
 
-      function request_content(contentURL) {
+      function request_content(content) {
         var header = request_module({
           id: 'module-header',
           htmlURL: '/app_modules/header/header.html',
@@ -164,16 +170,37 @@ define([
           cssURL: '/app_modules/menu/menu.css',
           viewModel: {
             url: '/app_modules/menu/menu.js',
-            args: {
-              url: contentURL,
-              selector: '#app-content'
-            }
+            args: content
           }
         });
         header = request_render(header, "#app-header");
         footer = request_render(footer, "#app-footer");
         body = request_render(body, '#app-body');
         return [header, footer, body];
+      }
+
+      var submodule_ready = create_observable("submodule_ready");
+
+      KO.bindingHandlers.request_submodule = {
+        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+          return { controlsDescendantBindings: true};
+        },
+
+        update: function(element, valueAccessor, allBindings, viewModel, bindingContext){
+          //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
+          var submoduleURL = KO.unwrap(valueAccessor()); //submodule content
+          request_render_submodule(null, submoduleURL, element, bindingContext).then(function(submodule){
+            submodule_ready(submodule);
+          });
+        }
+      };
+
+      function when_submodule_ready(id, cb) {
+        return submodule_ready.subscribe(function(submodule) {
+          if (id === null || id === submodule.id) {
+            cb(submodule);
+          }
+        });
       }
 
       //ajax request html fragment and injects it in element def by selector
@@ -194,6 +221,8 @@ define([
 
         get_observable,
 
-        request_content
+        request_content,
+
+        when_submodule_ready
       };
 });
