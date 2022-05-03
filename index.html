@@ -2,7 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="keywords" content="systemjs, jquery, knockout, bootstrap, web app">
+	<meta name="description" content="Sample of modular web app using systemjs, jquery, knockout, bootstrap">
+	<meta name="author" content="Ernest Leyva">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!-- prevent zoom, keep portrait & landscape consistante, trigger media queries -->
   <title>SystemJS-knockout-App</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
   <link rel="stylesheet" href="/styles.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.12.1/system.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.12.1/extras/named-register.min.js"></script>
@@ -12,6 +18,7 @@
       "imports":{
         "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
         "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
+        "bootstrap":"https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js",
         "custom-knockout-bindings":"/app_modules/custom-knockout-bindings.js",
         "loader":"/app_modules/loader.js"
       }
@@ -30,7 +37,7 @@
       "/app_modules/header/header-loader.js",
       "/app_modules/footer/footer-loader.js",
       "/app_modules/main/main-loader.js"
-    ],function(loader, header, footer, main){
+    ], function(loader, header, footer, main) {
       header = loader.request_render(header, "#app-header");
       footer = loader.request_render(footer, "#app-footer");
       main = loader.request_render(main, "#app-body");
@@ -39,6 +46,7 @@
         $(document.body).addClass("modules-rendered");
       });
     });
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
   </script>
 </body>
 </html>

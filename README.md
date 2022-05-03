@@ -1,6 +1,6 @@
-# systemjs
+# systemjs, jquery, knockout & bootstrap web app
 
-modular web app based on systemjs
+modular mvvm web app based on systemjs, jquery, knockout & bootstrap
 
 requires node > 10.0.0
 
