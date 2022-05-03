@@ -25,9 +25,9 @@ define([
             },
             {
               id:'module-tab-three',
-              htmlURL:"/app_modules/tabs/tab-three/tab-three.html",
-              cssURL:"/app_modules/tabs/tab-three/tab-three.css",
-              viewModelURL:"/app_modules/tabs/tab-three/tab-three.js"
+              htmlURL:"/app_modules/test/test.html",
+              cssURL:"/app_modules/test/test.css",
+              viewModelURL:"/app_modules/test/test.js"
             }
           ]
         }

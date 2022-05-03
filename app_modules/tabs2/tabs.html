@@ -1,0 +1,21 @@
+<div id="module-tabs">
+  <h2>Tabs</h2>
+  <div class="tabs-list">
+    <ul >
+      <li data-bind="css:{active: currentTab() == 0}"><button data-bind="click:function(){ selectTab(0) }">Table</button></li>
+      <li data-bind="css:{active: currentTab() == 1}"><button data-bind="click:function(){ selectTab(1) }">Form</button></li>
+      <li data-bind="css:{active: currentTab() == 2}"><button data-bind="click:function(){ selectTab(2) }">List</button></li>
+    </ul>
+  </div>
+  <div class="tabs-content" >
+    <div data-bind="visible:  currentTab() == 0">
+      <div id="tab-one-content" data-bind="request_submodule: '/app_modules/table/table-loader.js'"></div>
+    </div>
+    <div data-bind="visible: currentTab() == 1">
+      <div id="tab-two-content" data-bind="request_submodule: '/app_modules/form/form-loader.js'"></div>
+    </div>
+    <div  data-bind="visible: currentTab() == 2">
+      <div id="tab-three-content" data-bind="request_submodule: '/app_modules/list/list-loader.js'"></div>
+    </div>
+  </div>
+</div>

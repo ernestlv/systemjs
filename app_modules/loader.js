@@ -148,37 +148,6 @@ define([
         return observables[id];
       }
 
-      function request_content(content) {
-        var header = request_module({
-          id: 'module-header',
-          htmlURL: '/app_modules/header/header.html',
-          cssURL: '/app_modules/header/header.css',
-          viewModelURL: '/app_modules/header/header.js'
-        });
-        var footer = request_module({
-          id: 'module-footer',
-          htmlURL: '/app_modules/footer/footer.html',
-          cssURL: '/app_modules/footer/footer.css',
-          viewModelURL: '/app_modules/footer/footer.js'
-        });
-        /*
-         * Request menu and content modules to inject in app body
-         */
-        var body = request_module({
-          id:'module-menu',
-          htmlURL: '/app_modules/menu/menu.html',
-          cssURL: '/app_modules/menu/menu.css',
-          viewModel: {
-            url: '/app_modules/menu/menu.js',
-            args: content
-          }
-        });
-        header = request_render(header, "#app-header");
-        footer = request_render(footer, "#app-footer");
-        body = request_render(body, '#app-body');
-        return [header, footer, body];
-      }
-
       var submodule_ready = create_observable("submodule_ready");
 
       KO.bindingHandlers.request_submodule = {
@@ -220,8 +189,6 @@ define([
         create_observable,
 
         get_observable,
-
-        request_content,
 
         when_submodule_ready
       };

@@ -1,0 +1,32 @@
+#module-tabs {
+  padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+#module-tabs > h2 {
+  margin-top: 0;
+  color:silver;
+}
+
+#module-tabs div.tabs-list {
+  border-bottom: 1px solid silver;
+}
+
+#module-tabs div.tabs-list ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#module-tabs div.tabs-list li {
+  display: inline;
+}
+
+#module-tabs div.tabs-list button {
+  width: 5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+#module-tabs div.tabs-list li.active button::before {
+  content: '> ';
+}
