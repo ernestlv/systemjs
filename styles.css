@@ -15,9 +15,7 @@ body.modules-rendered {
 }
 
 #app-body {
-}
-
-#app-body {
+  display: flex;
 }
 
 #app-body #app-menu {
