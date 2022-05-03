@@ -1,0 +1,17 @@
+#module-tabs {
+  padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+#module-tabs > h2 {
+  margin-top: 0;
+  color:silver;
+}
+
+
+#module-tabs ul[role=tablist] button {
+  margin-right: 0.5rem;
+}
+
+#module-tabs ul[role=tablist] li.active button::before {
+  content: '> ';
+}

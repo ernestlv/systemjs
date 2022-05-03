@@ -1,0 +1,13 @@
+<div id="module-tabs">
+  <h2>Bootstrap Tabs</h2>
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><button data-target="#table" aria-controls="table" role="tab" data-toggle="tab">Table</button></li>
+    <li role="presentation"><button data-target="#form" aria-controls="form" role="tab" data-toggle="tab">Form</button></li>
+    <li role="presentation"><button data-target="#list" aria-controls="list" role="tab" data-toggle="tab">List</button></li>
+  </ul>
+  <div class="tab-content" >
+    <div role="tabpanel" class="tab-pane active" id="table" data-bind="request_submodule: '/app_modules/table/table-loader.js'"></div>
+    <div role="tabpanel" class="tab-pane" id="form" data-bind="request_submodule: '/app_modules/form/form-loader.js'"></div>
+    <div role="tabpanel" class="tab-pane" id="list" data-bind="request_submodule: '/app_modules/list/list-loader.js'"></div>
+  </div>
+</div>
