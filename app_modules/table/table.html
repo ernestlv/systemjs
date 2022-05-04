@@ -1,15 +1,12 @@
 <div id="module-table">
-  <div id="app-menu"></div>
-  <div id="app-content">
-    <h2>Table</h2>
-    <table>
-      <tbody data-bind="foreach: rows">
-        <tr>
-          <td data-bind="text: name"></td>
-          <td data-bind="text: phone"></td>
-        </tr>
-      </tbody>
-    </table>
-    <button data-bind="click: addRow">Add Row</button>
-  </div>
+  <h2>Table</h2>
+  <table>
+    <tbody data-bind="foreach: rows">
+      <tr>
+        <td data-bind="text: name"></td>
+        <td data-bind="text: phone"></td>
+      </tr>
+    </tbody>
+  </table>
+  <button data-bind="click: addRow">Add Row</button>
 </div>

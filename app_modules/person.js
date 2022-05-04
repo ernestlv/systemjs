@@ -2,7 +2,9 @@ define(function(){
   console.log("Exectuing Person Module...");
 
   class Person {
-    name = "Pai"
+    constructor() {
+      this.name = "Pai";
+    }
   }
 
   return Person;

@@ -20,18 +20,18 @@
   padding: 0;
 }
 
-#module-menu:not(.collapse) {
+#module-menu:not(.x-collapse) {
   width: 13rem;
 }
 
-#module-menu.collapse {
-  width: 2.5rem;
+#module-menu.x-collapse {
+  width: 3.3rem;
 }
 
-#module-menu.collapse h2 {
+#module-menu.x-collapse h2 {
   display: none;
 }
 
-#module-menu.collapse ul {
+#module-menu.x-collapse ul {
   display: none;
 }
