@@ -4,18 +4,18 @@
     <ul >
       <li data-bind="css:{active: currentTab() == 0}"><button data-bind="click:function(){ selectTab(0) }">Table</button></li>
       <li data-bind="css:{active: currentTab() == 1}"><button data-bind="click:function(){ selectTab(1) }">Form</button></li>
-      <li data-bind="css:{active: currentTab() == 2}"><button data-bind="click:function(){ selectTab(2) }">Links</button></li>
+      <li data-bind="css:{active: currentTab() == 2}"><button data-bind="click:function(){ selectTab(2) }">List</button></li>
     </ul>
   </div>
   <div class="tabs-content" >
     <div data-bind="visible:  currentTab() == 0">
-      <div id="tab-one-content" data-bind="request_tab_module: 0"></div>
+      <div id="table" data-bind="request_submodule: '/app_modules/table/loader.js'"></div>
     </div>
     <div data-bind="visible: currentTab() == 1">
-      <div id="tab-two-content" data-bind="request_tab_module: 1"></div>
+      <div id="form" data-bind="request_submodule: '/app_modules/form/loader.js'"></div>
     </div>
     <div  data-bind="visible: currentTab() == 2">
-      <div id="tab-three-content" data-bind="request_tab_module: 2"></div>
+      <div id="list" data-bind="request_submodule: '/app_modules/list/loader.js'"></div>
     </div>
   </div>
 </div>

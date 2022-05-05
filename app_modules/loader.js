@@ -66,6 +66,18 @@ define([
         return create_viewmodel(id, [htmlPromise, cssPromise, viewModelPromise, argsPromise]);
       }
 
+      function request_module2(id, args) {
+        return request_module({
+          id,
+          htmlURL: '/app_modules/'+id+'/template.html',
+          cssURL: '/app_modules/'+id+'/styles.css',
+          viewModel: {
+            url: '/app_modules/'+id+'/viewmodel.js',
+            args
+          }
+        });
+      }
+
       function request_render(promiseModule, selector) { //module to render and element selector
         console.log("request_render: For ", selector);
         return promiseModule.then(function(module){
@@ -159,15 +171,15 @@ define([
           //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
           var submoduleURL = KO.unwrap(valueAccessor()); //submodule content
           request_render_submodule(null, submoduleURL, element, bindingContext).then(function(submodule){
-            submodule_ready(submodule);
+            submodule_ready(element.id);
           });
         }
       };
 
       function when_submodule_ready(id, cb) {
-        return submodule_ready.subscribe(function(submodule) {
-          if (id === null || id === submodule.id) {
-            cb(submodule);
+        return submodule_ready.subscribe(function(el) {
+          if (id === null || id === el) {
+            cb(el);
           }
         });
       }
@@ -175,6 +187,8 @@ define([
       //ajax request html fragment and injects it in element def by selector
       return {
         request_module,
+
+        request_module2,
 
         request_render,
 

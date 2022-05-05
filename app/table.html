@@ -7,7 +7,7 @@
 	<meta name="description" content="Sample of modular web app using systemjs, jquery, knockout, bootstrap">
 	<meta name="author" content="Ernest Leyva">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!-- prevent zoom, keep portrait & landscape consistante, trigger media queries -->
-  <title>SystemJS-knockout-App</title>
+  <title>Table</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
   <link rel="stylesheet" href="/styles.css">
   <script type="text/javascript" src="/node_modules/systemjs/dist/system.js"></script>
@@ -15,24 +15,24 @@
   <script type="text/javascript" src="/node_modules/systemjs/dist/extras/amd.js"></script>
   <!-- <script type="text/javascript" src="node_modules/typescript/lib/typescript.js"></script> -->
   <script type="systemjs-importmap">
-  {
-    "imports":{
-      "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
-      "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
-      "bootstrap":"https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js",
-      "loader":"/app_modules/loader.js"
+    {
+      "imports":{
+        "jquery":"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js",
+        "knockout":"https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js",
+        "bootstrap":"https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js",
+        "loader":"/app_modules/loader.js"
+      }
     }
-  }
   </script>
 </head>
 <body>
   <div id="page-table" class="page-content">
-    <div id="app-header" data-bind="request_submodule: '/app_modules/header/header-loader.js'"></div>
+    <div id="app-header" data-bind="request_submodule: '/app_modules/header/loader.js'"></div>
     <div id="app-body">
-      <div id="app-menu" data-bind="request_submodule: '/app_modules/menu/menu-loader.js'"></div>
-      <div id="app-content" data-bind="request_submodule: '/app_modules/table/table-loader.js'"></div>
+      <div id="app-menu" data-bind="request_submodule: '/app_modules/menu/loader.js'"></div>
+      <div id="app-content" data-bind="request_submodule: '/app_modules/table/loader.js'"></div>
     </div>
-    <div id="app-footer" data-bind="request_submodule: '/app_modules/footer/footer-loader.js'"></div>
+    <div id="app-footer" data-bind="request_submodule: '/app_modules/footer/loader.js'"></div>
   </div>
   <script>
     define([
@@ -40,8 +40,8 @@
       "loader"
     ], function(KO, loader){
       KO.applyBindings({});
-      loader.when_submodule_ready("module-table", function(submodule) {
-        console.log("Page app-content rendered:", submodule);
+      loader.when_submodule_ready("app-content", function(submodule) {
+        console.log("Page content rendered:", submodule);
         $(document.body).addClass("modules-rendered");
       });
     });

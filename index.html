@@ -27,26 +27,21 @@
 </head>
 <body>
   <div id="page-main" class="page-content">
-    <div id="app-header"></div>
-    <div id="app-body"></div>
-    <div id="app-footer"></div>
+    <div id="app-header" data-bind="request_submodule: '/app_modules/header/loader.js'"></div>
+    <div id="app-body" data-bind="request_submodule: '/app_modules/main/loader.js'"></div>
+    <div id="app-footer" data-bind="request_submodule: '/app_modules/footer/loader.js'"></div>
   </div>
   <script>
     define([
-      "loader",
-      "/app_modules/header/header-loader.js",
-      "/app_modules/footer/footer-loader.js",
-      "/app_modules/main/main-loader.js"
-    ], function(loader, header, footer, main) {
-      header = loader.request_render(header, "#app-header");
-      footer = loader.request_render(footer, "#app-footer");
-      main = loader.request_render(main, "#app-body");
-      loader.ready([header, footer, main], function(){
-        console.log("Page Modules Rendered.");
+      "knockout",
+      "loader"
+    ], function(KO, loader){
+      KO.applyBindings({});
+      loader.when_submodule_ready("app-body", function(submodule) {
+        console.log("Page content rendered:", submodule);
         $(document.body).addClass("modules-rendered");
       });
     });
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
   </script>
 </body>
 </html>

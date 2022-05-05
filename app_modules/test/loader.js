@@ -8,17 +8,9 @@ define([
         alert(value); //see test.js
       });
 
-      var modulePromise = loader.request_module({
-        id:'module-test',
-        htmlURL: '/app_modules/test/test.html',
-        cssURL: '/app_modules/test/test.css',
-        viewModel: {
-          url: '/app_modules/test/test.js',
-          args: {
-            arg1:"Hello",
-            arg2:"World!!!"
-          }
-        }
+      var modulePromise = loader.request_module2("test", {
+        arg1:"Hello",
+        arg2:"World!!!"
       });
 
       //lazy loading module
