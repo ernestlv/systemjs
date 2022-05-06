@@ -40,7 +40,7 @@
       "loader"
     ], function(KO, loader){
       KO.applyBindings({});
-      loader.when_submodule_ready("table", function(submodule) { //see tabs3/template.html
+      loader.when_module_ready("table", function(submodule) { //see tabs3/template.html
         console.log("Page content rendered:", submodule);
         $(document.body).addClass("modules-rendered");
       });

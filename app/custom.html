@@ -41,7 +41,7 @@
       "loader"
     ], function(KO, loader){
       KO.applyBindings({});
-      loader.when_submodule_ready("app-content", function(submodule) {
+      loader.when_module_ready("app-content", function(submodule) {
         console.log("Page content rendered:", submodule);
         $(document.body).addClass("modules-rendered");
       });

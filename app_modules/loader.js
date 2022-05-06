@@ -123,7 +123,7 @@ define([
         });
       }
 
-      function request_render_submodule(modulePromise, submoduleURL, el, bindingContext) {
+      function request_render_module(modulePromise, submoduleURL, el, bindingContext) {
         if (!el) {
           return Promise.resolve();
         }
@@ -160,9 +160,9 @@ define([
         return observables[id];
       }
 
-      var submodule_ready = create_observable("submodule_ready");
+      var module_ready = create_observable("module_ready");
 
-      KO.bindingHandlers.request_submodule = {
+      KO.bindingHandlers.request_module = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
           return { controlsDescendantBindings: true};
         },
@@ -170,8 +170,8 @@ define([
         update: function(element, valueAccessor, allBindings, viewModel, bindingContext){
           //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
           var submoduleURL = KO.unwrap(valueAccessor()); //submodule content
-          request_render_submodule(null, submoduleURL, element, bindingContext).then(function(submodule){
-            submodule_ready(element.id);
+          request_render_module(null, submoduleURL, element, bindingContext).then(function(submodule){
+            module_ready(element.id);
           });
         }
       };
@@ -185,14 +185,14 @@ define([
           //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
           var submoduleURL = KO.unwrap(valueAccessor()); //submodule content
           submoduleURL = "/app_modules/" + submoduleURL + "/loader.js";
-          request_render_submodule(null, submoduleURL, element, bindingContext).then(function(submodule){
-            submodule_ready(element.id);
+          request_render_module(null, submoduleURL, element, bindingContext).then(function(submodule){
+            module_ready(element.id);
           });
         }
       };
 
-      function when_submodule_ready(id, cb) {
-        return submodule_ready.subscribe(function(el) {
+      function when_module_ready(id, cb) {
+        return module_ready.subscribe(function(el) {
           if (id === null || id === el) {
             cb(el);
           }
@@ -209,7 +209,7 @@ define([
 
         request_render_child,
 
-        request_render_submodule,
+        request_render_module,
 
         ready,
 
@@ -219,6 +219,6 @@ define([
 
         get_observable,
 
-        when_submodule_ready
+        when_module_ready
       };
 });
