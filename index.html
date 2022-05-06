@@ -27,9 +27,9 @@
 </head>
 <body>
   <div id="page-main" class="page-content">
-    <div id="app-header" data-bind="request_submodule: '/app_modules/header/loader.js'"></div>
-    <div id="app-body" data-bind="request_submodule: '/app_modules/main/loader.js'"></div>
-    <div id="app-footer" data-bind="request_submodule: '/app_modules/footer/loader.js'"></div>
+    <div id="app-header" data-bind="include_module: 'header'"></div>
+    <div id="app-body" data-bind="include_module: 'main'"></div>
+    <div id="app-footer" data-bind="include_module: 'footer'"></div>
   </div>
   <script>
     define([

@@ -27,12 +27,12 @@
 </head>
 <body>
   <div id="page-tabs" class="page-content">
-    <div id="app-header" data-bind="request_submodule: '/app_modules/header/loader.js'"></div>
+    <div id="app-header" data-bind="include_module: 'header'"></div>
     <div id="app-body">
-      <div id="app-menu" data-bind="request_submodule: '/app_modules/menu/loader.js'"></div>
-      <div id="app-content" data-bind="request_submodule: '/app_modules/tabs3/loader.js'"></div>
+      <div id="app-menu" data-bind="include_module: 'menu'"></div>
+      <div id="app-content" data-bind="include_module: 'tabs3'"></div>
     </div>
-    <div id="app-footer" data-bind="request_submodule: '/app_modules/footer/loader.js'"></div>
+    <div id="app-footer" data-bind="include_module: 'footer'"></div>
   </div>
   <script>
     define([

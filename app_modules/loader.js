@@ -176,6 +176,21 @@ define([
         }
       };
 
+      KO.bindingHandlers.include_module = {
+        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+          return { controlsDescendantBindings: true};
+        },
+
+        update: function(element, valueAccessor, allBindings, viewModel, bindingContext){
+          //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
+          var submoduleURL = KO.unwrap(valueAccessor()); //submodule content
+          submoduleURL = "/app_modules/" + submoduleURL + "/loader.js";
+          request_render_submodule(null, submoduleURL, element, bindingContext).then(function(submodule){
+            submodule_ready(element.id);
+          });
+        }
+      };
+
       function when_submodule_ready(id, cb) {
         return submodule_ready.subscribe(function(el) {
           if (id === null || id === el) {

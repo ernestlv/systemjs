@@ -7,26 +7,26 @@ define([
 
   var loadedTabs = [];
 
-  KO.bindingHandlers.request_tab_module =  {
+  KO.bindingHandlers.request_tab =  {
     init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
       return { controlsDescendantBindings: true};
     },
 
     update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
       var currentTab = viewModel.currentTab();
-      var value = valueAccessor();
-      if (currentTab !== value) {
+      var tab = valueAccessor();
+      if (currentTab !== tab) {
         return; //abort binding wrong tab
       }
-      var index = loadedTabs.indexOf(value);
+      var index = loadedTabs.indexOf(tab);
       if (index !== -1) {
         return; //abort binding tab already loaded
       }
-      var module = viewModel.tabs[value];
+      var module = viewModel.tabModules[tab];
       var promiseModule = loader.request_module2(module);
       loader.request_render_child(promiseModule, element, bindingContext).then(function(module){
-        loadedTabs.push(value);
-        console.log("Tab was rendered", value);
+        loadedTabs.push(tab);
+        console.log("Tab was rendered", tab);
       });
     }
   }
@@ -40,26 +40,25 @@ define([
 
   var changeTab = loader.get_observable("changeTab");
 
-  changeTab.subscribe(function(value) {
-    console.log("changeTab:", value);
-    if (value.index !== 2){
+  changeTab.subscribe(function(index) {
+    console.log("changeTab:", index);
+    if (index !== 2){
       $(document.body).off('click', click);
-    }
-    if (value.index === 2){
+    } else {
       $(document.body).on('click', click);
     }
   });
 
-  return function TabsModel(tabs) {
+  return function TabsModel(tabModules) {
     var self = this;
-    self.tabs = tabs; //tabs modules see tabs/loader.js
+    self.tabModules = tabModules; //see tabs/loader.js
     self.currentTab = KO.observable(-1);
     self.selectTab = function(index) {
       var currentTab = self.currentTab();
       if (currentTab === index) {
         return; //tab already selected
       }
-      changeTab({currentTab, index});
+      changeTab(index);
       self.currentTab(index);
     };
     self.selectTab(0); //first tab default

@@ -27,9 +27,9 @@
 </head>
 <body>
   <div id="page-links" class="page-content">
-    <div id="app-header" data-bind="request_submodule: '/app_modules/header/loader.js'"></div>
+    <div id="app-header" data-bind="include_module: 'header'"></div>
     <div id="app-body">
-      <div id="app-menu" data-bind="request_submodule: '/app_modules/menu/loader.js'"></div>
+      <div id="app-menu" data-bind="include_module: 'menu'"></div>
       <div id="app-content">
         <div id="module-links" style="padding: 0.5rem 0 0.5rem 0.5rem">
             <h2 style="color:silver; margin-top:0">Links</h2>
@@ -49,12 +49,12 @@
             </div>
             <iframe src="/app/iframe.html"></iframe>
             <div>
-              <a href="/">Back</a>
+              <a href="/">Home</a>
             </div>
         </div>
       </div>
     </div>
-    <div id="app-footer" data-bind="request_submodule: '/app_modules/footer/loader.js'"></div>
+    <div id="app-footer" data-bind="include_module: 'footer'"></div>
   </div>
   <script>
     define([

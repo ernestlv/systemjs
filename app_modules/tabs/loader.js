@@ -4,8 +4,8 @@ define([
 
       console.log("Executing Tabs Loader...");
 
-      var tabs = [ "table", "form", "list" ]; //tabs modules see tabs/viewmodule.js
+      var tabModules = [ "table", "form", "list" ]; //see tabs/viewmodule.js
 
-      return loader.request_module2("tabs", tabs);
+      return loader.request_module2("tabs", tabModules);
 
 });
