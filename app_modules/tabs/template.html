@@ -2,20 +2,20 @@
   <h2>Tabs</h2>
   <div class="tabs-list">
     <ul >
-      <li data-bind="css:{active: currentTab() == 0}"><button data-bind="click:function(){ selectTab(0) }">Table</button></li>
-      <li data-bind="css:{active: currentTab() == 1}"><button data-bind="click:function(){ selectTab(1) }">Form</button></li>
-      <li data-bind="css:{active: currentTab() == 2}"><button data-bind="click:function(){ selectTab(2) }">List</button></li>
+      <li data-bind="css:{active: currentTab() == 'table'}"><button data-bind="click:function(){ selectTab('table') }">Table</button></li>
+      <li data-bind="css:{active: currentTab() == 'form'}"><button data-bind="click:function(){ selectTab('form') }">Form</button></li>
+      <li data-bind="css:{active: currentTab() == 'list'}"><button data-bind="click:function(){ selectTab('list') }">List</button></li>
     </ul>
   </div>
   <div class="tabs-content" >
-    <div data-bind="visible:  currentTab() == 0">
-      <div id="table" data-bind="request_tab: 0"></div>
+    <div data-bind="visible:  currentTab() == 'table'">
+      <div id="table" data-bind="request_tab: 'table'"></div>
     </div>
-    <div data-bind="visible: currentTab() == 1">
-      <div id="form" data-bind="request_tab: 1"></div>
+    <div data-bind="visible: currentTab() == 'form'">
+      <div id="form" data-bind="request_tab: 'form'"></div>
     </div>
-    <div  data-bind="visible: currentTab() == 2">
-      <div id="list" data-bind="request_tab: 2"></div>
+    <div  data-bind="visible: currentTab() == 'list'">
+      <div id="list" data-bind="request_tab: 'list'"></div>
     </div>
   </div>
 </div>

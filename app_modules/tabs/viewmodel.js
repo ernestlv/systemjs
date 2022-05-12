@@ -2,10 +2,36 @@ define([
   "knockout",
   "loader"
 ], function(KO, loader){
-
   console.log("Executing Tabs Module...");
 
   var loadedTabs = [];
+  var module_ready = loader.get_observable("module_ready");
+  var currentTab = loader.create_observable("currentTab", "");
+
+  function click(){
+   alert("page click!");
+  }
+
+  function toggleClickEvent(currentTabName) {
+    console.log("currentTab:", currentTabName);
+    if (currentTabName !== 'list'){
+      $(document.body).off('click', click);
+    } else {
+      $(document.body).on('click', click);
+    }
+  }
+
+  loader.when_module_inserted("tabs", function(){
+    var currentTabName = currentTab();
+    toggleClickEvent(currentTabName);
+  });
+
+  loader.when_module_removed("tabs", function(){
+    loadedTabs = [];
+    $(document.body).off('click', click);
+  });
+
+  currentTab.subscribe(toggleClickEvent); //when current tabs changes
 
   KO.bindingHandlers.request_tab =  {
     init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -13,54 +39,35 @@ define([
     },
 
     update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-      var currentTab = viewModel.currentTab();
-      var tab = valueAccessor();
-      if (currentTab !== tab) {
+      var selectedTabName = currentTab();
+      var tabName = valueAccessor();
+      if (selectedTabName !== tabName) {
         return; //abort binding wrong tab
       }
-      var index = loadedTabs.indexOf(tab);
+      var index = loadedTabs.indexOf(selectedTabName);
       if (index !== -1) {
-        return; //abort binding tab already loaded
+        return; //abort tab already loaded
       }
-      var module = viewModel.tabModules[tab];
-      var promiseModule = loader.request_module2(module);
-      loader.request_render_child(promiseModule, element, bindingContext).then(function(module){
-        loadedTabs.push(tab);
-        console.log("Tab was rendered", tab);
+      var moduleURL = "/app_modules/" + selectedTabName + "/loader.js";
+      loader.request_render_module(null, moduleURL, element, bindingContext).then(function(module){
+        loadedTabs.push(selectedTabName);
+        module_ready(element, module);
+        console.log("Tab was rendered", selectedTabName);
       });
     }
   }
 
-  var changeTab = loader.create_observable("changeTab");
-
-  function click(){
-   alert("page click!");
-  }
-
-
-  var changeTab = loader.get_observable("changeTab");
-
-  changeTab.subscribe(function(index) {
-    console.log("changeTab:", index);
-    if (index !== 2){
-      $(document.body).off('click', click);
-    } else {
-      $(document.body).on('click', click);
-    }
-  });
-
   return function TabsModel(tabModules) {
     var self = this;
     self.tabModules = tabModules; //see tabs/loader.js
-    self.currentTab = KO.observable(-1);
-    self.selectTab = function(index) {
-      var currentTab = self.currentTab();
-      if (currentTab === index) {
+    self.currentTab = currentTab;
+    self.selectTab = function(selectedTabName) {
+      var currentTabName = currentTab();
+      if (currentTabName === selectedTabName) {
         return; //tab already selected
       }
-      changeTab(index);
-      self.currentTab(index);
+      currentTab(selectedTabName);
     };
-    self.selectTab(0); //first tab default
+    self.selectTab(tabModules[0]); //first tab default
   };
 });

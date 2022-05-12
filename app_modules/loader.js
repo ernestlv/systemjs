@@ -123,18 +123,18 @@ define([
         });
       }
 
-      function request_render_module(modulePromise, submoduleURL, el, bindingContext) {
+      function request_render_module(modulePromise, moduleURL, el, bindingContext) {
         if (!el) {
           return Promise.resolve();
         }
         modulePromise = !modulePromise ? Promise.resolve() : modulePromise;
         return modulePromise.then(function(module){
-          console.log("requesting submodule", submoduleURL);
-          return System.import(submoduleURL).then(function(subModule) {
-            console.log("submodule", submoduleURL, "resolved.");
-            var submodulePromise = subModule.default;
+          console.log("requesting module", moduleURL);
+          return System.import(moduleURL).then(function(submodule) { //this import is cached
+            console.log("module", moduleURL, "resolved.");
+            var submodulePromise = submodule.default;
             return request_render_child(submodulePromise, el, bindingContext).then(function(submodule){
-              console.log("submodule", submoduleURL, "rendered.");
+              console.log("module", moduleURL, "rendered.");
               return submodule;
             });
           });
@@ -160,7 +160,9 @@ define([
         return observables[id];
       }
 
+      var app_module = create_observable("app_module");
       var module_ready = create_observable("module_ready");
+      var remove_module = create_observable("remove_module");
 
       KO.bindingHandlers.request_module = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -169,9 +171,9 @@ define([
 
         update: function(element, valueAccessor, allBindings, viewModel, bindingContext){
           //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
-          var submoduleURL = KO.unwrap(valueAccessor()); //submodule content
-          request_render_module(null, submoduleURL, element, bindingContext).then(function(submodule){
-            module_ready(element.id);
+          var moduleURL = KO.unwrap(valueAccessor()); //submodule content
+          request_render_module(null, moduleURL, element, bindingContext).then(function(submodule){
+            module_ready(element);
           });
         }
       };
@@ -183,18 +185,34 @@ define([
 
         update: function(element, valueAccessor, allBindings, viewModel, bindingContext){
           //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
-          var submoduleURL = KO.unwrap(valueAccessor()); //submodule content
-          submoduleURL = "/app_modules/" + submoduleURL + "/loader.js";
-          request_render_module(null, submoduleURL, element, bindingContext).then(function(submodule){
-            module_ready(element.id);
+          var moduleURL = KO.unwrap(valueAccessor()); //submodule content
+          moduleURL = "/app_modules/" + moduleURL + "/loader.js";
+          request_render_module(null, moduleURL, element, bindingContext).then(function(module){
+            module_ready(element, module);
           });
         }
       };
 
-      function when_module_ready(id, cb) {
-        return module_ready.subscribe(function(el) {
-          if (id === null || id === el) {
-            cb(el);
+      function when_element_ready(id, cb) {
+        return module_ready.subscribe(function(el, module) {
+          if (id === el.id) {
+            cb(el, module);
+          }
+        });
+      }
+
+      function when_module_removed(id, cb) {
+        return remove_module.subscribe(function(moduleID) {
+          if (id === moduleID) {
+            cb();
+          }
+        });
+      }
+
+      function when_module_inserted(id, cb) {
+        return app_module.subscribe(function(moduleID) {
+          if (id === moduleID) {
+            cb();
           }
         });
       }
@@ -219,6 +237,10 @@ define([
 
         get_observable,
 
-        when_module_ready
+        when_element_ready,
+
+        when_module_removed,
+
+        when_module_inserted
       };
 });
