@@ -1,25 +1,26 @@
 define([
   "jquery",
+  "knockout",
   "loader"
-], function($, loader) {
+], function($, KO, loader) {
 
   console.log("Executing Navigator Module...");
 
-  loader.when_element_ready("app-content", function(element) {
-    console.log("Page content rendered:", element.id);
-    $(document.body).addClass("modules-rendered");
-  });
-
   return function NavigatorModel() {
-    this.app_module = loader.get_observable("app_module");
-    var remove_module = loader.get_observable("remove_module");
-    var current_module = this.app_module();
+    this.expand = function() {
+      if ($("#module-navigator").hasClass("x-collapse")) {
+        console.log("expand app navigator...");
+        $("#module-navigator").removeClass("x-collapse");
+        return;
+      }
+      console.log("collapse app navigator...");
+      $("#module-navigator").addClass("x-collapse");
+    }
 
-    this.app_module.subscribe(function(moduleID) { //every time app_module is updated
-      remove_module(current_module);
-      var el = document.querySelector("#app-content");
-      $(el).empty();
-      current_module = moduleID;
-    });
+    this.openModule = function(pageModule) {
+      var app_module = loader.get_observable("app_module"); //see /app/navigator/template.html
+      app_module(pageModule.toLowerCase()); //update module
+    }
   };
+
 });

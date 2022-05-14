@@ -4,6 +4,6 @@ define([
 
       console.log("Custom Loader created!");
 
-      return loader.request_module2("custom");
+      return loader.load_module("custom");
 
 });

@@ -4,6 +4,6 @@ define([
 
       console.log("Executing Header Loader...");
 
-      return loader.request_module2("header");
+      return loader.load_module("header");
 
 });

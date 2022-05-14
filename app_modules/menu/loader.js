@@ -4,7 +4,7 @@ define([
 
       console.log("Executing Menu Loader...");
 
-      var modulePromise = loader.request_module2("menu");
+      var modulePromise = loader.load_module("menu");
 
       return modulePromise;
 });

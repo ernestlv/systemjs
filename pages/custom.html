@@ -3,13 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="keywords" content="systemjs, jquery, knockout, bootstrap, SPA">
-	<meta name="description" content="Sample of modular SPA using systemjs, jquery, knockout, bootstrap">
+  <meta name="keywords" content="systemjs, jquery, knockout, bootstrap, web app">
+	<meta name="description" content="Sample of modular web app using systemjs, jquery, knockout, bootstrap">
 	<meta name="author" content="Ernest Leyva">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!-- prevent zoom, keep portrait & landscape consistante, trigger media queries -->
-  <title>Single Page Application</title>
+  <title>Custom</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
   <link rel="stylesheet" href="/styles.css">
+  <script type="text/javascript" src="/node_modules/systemjs/dist/system.js"></script>
+  <script type="text/javascript" src="/node_modules/systemjs/dist/extras/named-register.js"></script>
+  <script type="text/javascript" src="/node_modules/systemjs/dist/extras/amd.js"></script>
+  <!-- <script type="text/javascript" src="node_modules/typescript/lib/typescript.js"></script> -->
   <script type="systemjs-importmap">
     {
       "imports":{
@@ -23,16 +27,24 @@
   </script>
 </head>
 <body>
-  <div id="page-spa" class="page-content" data-bind="include_module: 'spa'"></div>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.12.1/system.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.12.1/extras/named-register.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.12.1/extras/amd.min.js"></script>
+  <div id="page-custom" class="page-content">
+    <div id="app-header" data-bind="include_module: 'header'"></div>
+    <div id="app-body">
+      <div id="app-menu" data-bind="include_module: 'menu'"></div>
+      <div id="app-content" data-bind="include_module: 'custom'"></div>
+    </div>
+    <div id="app-footer" data-bind="include_module: 'footer'"></div>
+  </div>
   <script>
     define([
       "knockout",
-      "loader" //required for include_module
-    ], function(KO){
+      "loader"
+    ], function(KO, loader){
       KO.applyBindings({});
+      loader.when_element_ready("app-content", function(submodule) {
+        console.log("Page content rendered:", submodule);
+        $(document.body).addClass("modules-rendered");
+      });
     });
   </script>
 </body>

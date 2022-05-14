@@ -4,6 +4,6 @@ define([
 
       console.log("Executing Nested Loader...");
 
-      return loader.request_module2("nested");
+      return loader.load_module("nested");
 
 });

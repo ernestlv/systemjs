@@ -1,31 +1,31 @@
 define([
   "jquery",
   "knockout"
-], function($, KO) {
+], function AppLoader($, KO) {
 
       console.log("Executing Module app loader ...");
 
       var observables = {};
 
-      function create_viewmodel(id, [htmlPromise, cssPromise, viewModelPromise, argsPromise]) {
-        return Promise.all([htmlPromise, cssPromise, viewModelPromise, argsPromise]).then(function([html, css, ViewModel, args]){
-          console.log("creating viewModel:", id, ViewModel);
+      function create_viewmodel(id, htmlPromise, cssPromise, viewmodelPromise, argsPromise) {
+        return Promise.all([htmlPromise, cssPromise, viewmodelPromise, argsPromise]).then(function([html, css, ViewModel, args]){
+          console.log("creating viewmodel:", id, ViewModel);
           if (ViewModel) {
             if (typeof ViewModel === "function") { //true if model module returns a function
-              var viewModel = new ViewModel(args);
+              var viewmodel = new ViewModel(args);
             } else {
-              var viewModel = ViewModel;
+              var viewmodel = ViewModel;
             }
           }
-          return { id, html, css, viewModel };
+          return { id, html, css, viewmodel };
         });
       }
 
       function request_module(dependencies) {
-        var htmlPromise, cssPromise, viewModelPromise, argsPromise
-        var {id, htmlURL, cssURL, viewModelURL, viewModel} = dependencies;
+        var htmlPromise, cssPromise, viewmodelPromise, argsPromise
+        var {id, htmlURL, cssURL, viewmodelURL, viewmodel} = dependencies;
 
-        console.log("requesting module:", id, htmlURL, cssURL, viewModelURL, viewModel);
+        console.log("requesting module " + id + " dependencies:", htmlURL, cssURL, viewmodelURL || viewmodel);
 
         if (htmlURL) {
           htmlPromise = $.ajax({
@@ -45,99 +45,104 @@ define([
           cssPromise = Promise.resolve(undefined);
         }
 
-        if (viewModel || viewModelURL) {
-          if (typeof viewModelURL === "string") {
-            viewModelPromise = System.import(viewModelURL).then(function(module){
-              console.log("request_module: viewModelURL resolved for:", viewModelURL);
+        if (viewmodel || viewmodelURL) {
+          if (typeof viewmodelURL === "string") {
+            viewmodelPromise = System.import(viewmodelURL).then(function(module){
+              console.log("viewmodelURL resolved for:", viewmodelURL);
               return module.default;
             });
             argsPromise = Promise.resolve(undefined);
           } else {
-            viewModelPromise = System.import(viewModel.url).then(function(module){
-              console.log("request_module: viewModel resolved for:", viewModel);
+            viewmodelPromise = System.import(viewmodel.url).then(function(module){
+              console.log("viewmodel resolved for:", viewmodel);
               return module.default;
             });
-            argsPromise = Promise.resolve(viewModel.args);
+            argsPromise = Promise.resolve(viewmodel.args);
           }
         } else {
-          viewModelPromise = Promise.resolve(undefined);
+          viewmodelPromise = Promise.resolve(undefined);
           argsPromise = Promise.resolve(undefined);
         }
-        return create_viewmodel(id, [htmlPromise, cssPromise, viewModelPromise, argsPromise]);
+        return create_viewmodel(id, htmlPromise, cssPromise, viewmodelPromise, argsPromise);
       }
 
-      function request_module2(id, args) {
+      function load_module(id, args) {
         return request_module({
           id,
           htmlURL: '/app_modules/'+id+'/template.html',
           cssURL: '/app_modules/'+id+'/styles.css',
-          viewModel: {
+          viewmodel: {
             url: '/app_modules/'+id+'/viewmodel.js',
             args
           }
         });
       }
 
-      function request_render(promiseModule, selector) { //module to render and element selector
-        console.log("request_render: For ", selector);
+      function render_module(promiseModule, selector) { //module to render and element selector
+        console.log("render_module:", selector);
         return promiseModule.then(function(module){
-          console.log("rendering Module:", module.id);
+          console.log("rendering module:", module.id);
           var el = document.querySelector(selector);
-          var { html, css, viewModel } =  module;
+          var { html, css, viewmodel } =  module;
           el && css && $(el).append('<style type="text/css">' + css + '</style>');
           el && html && $(el).append(html);
-          if (el && viewModel) {
+          if (el && viewmodel) {
             try {
-              KO.applyBindings(viewModel, el);
+              KO.applyBindings(viewmodel, el); //root context
             } catch(e) {
-              console.error(e, "element:", el, "viewModel:", viewModel);
+              console.error(e, "element:", el, "viewmodel:", viewmodel);
             }
           }
           return module;
         });
       }
 
-      function request_render_child(promiseModule, el, bindingContext) { //module to render in element selector
-        if (!el) {
+      function render_child_module(promiseModule, element, bindingContext) { //module to render in element using child context
+        if (!element) {
           return Promise.resolve();
         }
-        console.log("request_render_child: For ", el);
+        console.log("request render child module:", element);
         return promiseModule.then(function(module){
-          console.log("rendering child module:", module.id);
-          var { html, css, viewModel } =  module;
-          css && $(el).append('<style type="text/css">' + css + '</style>');
-          html && $(el).append(html);
-          if (viewModel) {
+          console.log("rendering module:", module.id);
+          var { html, css, viewmodel } =  module;
+          css && $(element).append('<style type="text/css">' + css + '</style>');
+          html && $(element).append(html);
+          if (viewmodel) {
             try {
-              var childContext = viewModel;
+              var childContext = viewmodel;
               if (bindingContext) {
-                childContext = bindingContext.createChildContext(viewModel);
-                console.log("created new knockout child context:", childContext, "for", viewModel);
+                childContext = bindingContext.createChildContext(viewmodel);
+                console.log("created knockout child context:", childContext, "for", viewmodel);
               }
-               KO.applyBindingsToDescendants(childContext, el);
+               KO.applyBindingsToDescendants(childContext, element);
             } catch(e) {
-              console.error(e, "element:", el, "viewModel:", viewModel);
+              console.error(e, "element:", element, "viewmodel:", viewmodel);
             }
           }
           return module;
         });
       }
 
-      function request_render_module(modulePromise, moduleURL, el, bindingContext) {
-        if (!el) {
-          return Promise.resolve();
-        }
+      function request_render_module(modulePromise, moduleURL, element, bindingContext) {
         modulePromise = !modulePromise ? Promise.resolve() : modulePromise;
         return modulePromise.then(function(module){
-          console.log("requesting module", moduleURL);
+          console.log("requesting module:", moduleURL);
           return System.import(moduleURL).then(function(submodule) { //this import is cached
             console.log("module", moduleURL, "resolved.");
             var submodulePromise = submodule.default;
-            return request_render_child(submodulePromise, el, bindingContext).then(function(submodule){
+            return render_child_module(submodulePromise, element, bindingContext).then(function(submodule){
               console.log("module", moduleURL, "rendered.");
               return submodule;
             });
           });
+        });
+      }
+
+      function update_module(moduleURL, element, bindingContext) { //notify after module is inserted in element
+        return request_render_module(null, moduleURL, element, bindingContext).then(function(module){
+          element_ready(element); //notify sends DOM element
+          module_ready(module); //notify sends module:{id, html, css, viewmodel}
+          return module;
         });
       }
 
@@ -160,57 +165,62 @@ define([
         return observables[id];
       }
 
-      var app_module = create_observable("app_module");
-      var module_ready = create_observable("module_ready");
-      var remove_module = create_observable("remove_module");
+      var app_module = create_observable("app_module"); //points to current module in #app_content
+      var element_ready = create_observable("element_ready"); //fires after #app_content is updated
+      var module_ready = create_observable("module_ready"); //fires after #app_content is updated
+      var remove_module = create_observable("remove_module"); //fires before #app_content content is removed
 
       KO.bindingHandlers.request_module = {
-        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        init: function(element, valueAccessor, allBindings, viewmodel, bindingContext) {
           return { controlsDescendantBindings: true};
         },
 
-        update: function(element, valueAccessor, allBindings, viewModel, bindingContext){
+        update: function(element, valueAccessor, allBindings, viewmodel, bindingContext){
           //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
-          var moduleURL = KO.unwrap(valueAccessor()); //submodule content
-          request_render_module(null, moduleURL, element, bindingContext).then(function(submodule){
-            module_ready(element);
-          });
+          var moduleURL = KO.unwrap(valueAccessor()); //see app_module
+          update_module(moduleURL, element, bindingContext);
         }
       };
 
       KO.bindingHandlers.include_module = {
-        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        init: function(element, valueAccessor, allBindings, viewmodel, bindingContext) {
           return { controlsDescendantBindings: true};
         },
 
-        update: function(element, valueAccessor, allBindings, viewModel, bindingContext){
+        update: function(element, valueAccessor, allBindings, viewmodel, bindingContext){
           //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
-          var moduleURL = KO.unwrap(valueAccessor()); //submodule content
+          var moduleURL = KO.unwrap(valueAccessor()); //see app_module
           moduleURL = "/app_modules/" + moduleURL + "/loader.js";
-          request_render_module(null, moduleURL, element, bindingContext).then(function(module){
-            module_ready(element, module);
-          });
+          update_module(moduleURL, element, bindingContext);
         }
       };
 
-      function when_element_ready(id, cb) {
-        return module_ready.subscribe(function(el, module) {
-          if (id === el.id) {
-            cb(el, module);
+      function when_element_ready(id, cb) { //executed after HTML is injected in DOM element
+        return element_ready.subscribe(function(element) {
+          if (id === element.id) {
+            cb(element);
           }
         });
       }
 
-      function when_module_removed(id, cb) {
-        return remove_module.subscribe(function(moduleID) {
+      function when_module_ready(id, cb) { //executed after HTML is injected in DOM
+        return module_ready.subscribe(function(module) { //module: {id, html, css, viewmodel}
+          if (id === module.id) {
+            cb(module);
+          }
+        });
+      }
+
+      function when_app_module_updated(id, cb) { //executes after second time app_module is updated and HTML is injected in DOM
+        return app_module.subscribe(function(moduleID) {
           if (id === moduleID) {
             cb();
           }
         });
       }
 
-      function when_module_inserted(id, cb) {
-        return app_module.subscribe(function(moduleID) {
+      function when_module_removed(id, cb) { //executed before HTML is removed from DOM
+        return remove_module.subscribe(function(moduleID) {
           if (id === moduleID) {
             cb();
           }
@@ -221,11 +231,11 @@ define([
       return {
         request_module,
 
-        request_module2,
+        load_module,
 
-        request_render,
+        render_module,
 
-        request_render_child,
+        render_child_module,
 
         request_render_module,
 
@@ -241,6 +251,10 @@ define([
 
         when_module_removed,
 
-        when_module_inserted
+        when_app_module_updated,
+
+        when_module_ready,
+
+        update_module
       };
 });

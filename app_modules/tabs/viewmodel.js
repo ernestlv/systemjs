@@ -5,14 +5,14 @@ define([
   console.log("Executing Tabs Module...");
 
   var loadedTabs = [];
-  var module_ready = loader.get_observable("module_ready");
+  var element_ready = loader.get_observable("element_ready");
   var currentTab = loader.create_observable("currentTab", "");
 
   function click(){
    alert("page click!");
   }
 
-  function toggleClickEvent(currentTabName) {
+  function toggleClick(currentTabName) {
     console.log("currentTab:", currentTabName);
     if (currentTabName !== 'list'){
       $(document.body).off('click', click);
@@ -21,9 +21,9 @@ define([
     }
   }
 
-  loader.when_module_inserted("tabs", function(){
+  loader.when_app_module_updated("tabs", function(){
     var currentTabName = currentTab();
-    toggleClickEvent(currentTabName);
+    toggleClick(currentTabName);
   });
 
   loader.when_module_removed("tabs", function(){
@@ -31,27 +31,26 @@ define([
     $(document.body).off('click', click);
   });
 
-  currentTab.subscribe(toggleClickEvent); //when current tabs changes
+  currentTab.subscribe(toggleClick); //every time currentTab is updated
 
   KO.bindingHandlers.request_tab =  {
-    init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+    init: function(element, valueAccessor, allBindings, viewmodel, bindingContext) {
       return { controlsDescendantBindings: true};
     },
 
-    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+    update: function(element, valueAccessor, allBindings, viewmodel, bindingContext) {
       var selectedTabName = currentTab();
       var tabName = valueAccessor();
       if (selectedTabName !== tabName) {
-        return; //abort binding wrong tab
+        return; //abort wrong tab
       }
       var index = loadedTabs.indexOf(selectedTabName);
       if (index !== -1) {
         return; //abort tab already loaded
       }
       var moduleURL = "/app_modules/" + selectedTabName + "/loader.js";
-      loader.request_render_module(null, moduleURL, element, bindingContext).then(function(module){
+      loader.update_module(moduleURL, element, bindingContext).then(function(module){
         loadedTabs.push(selectedTabName);
-        module_ready(element, module);
         console.log("Tab was rendered", selectedTabName);
       });
     }

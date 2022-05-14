@@ -14,7 +14,7 @@ define([
       };
 
       KO.bindingHandlers.with_context = {
-        init: function(element, valueAccessor, allBindings, viewModel, bindingContext){
+        init: function(element, valueAccessor, allBindings, viewmodel, bindingContext){
           //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
           var childContext = valueAccessor();
           console.log("create new knockout child context for", childContext);

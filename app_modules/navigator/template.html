@@ -1,8 +1,16 @@
-<div id="module-navigator">
-  <div id="app-header" data-bind="include_module: 'header'"></div>
-  <div id="app-body">
-    <div id="app-menu" data-bind="include_module: 'navigator_menu'"></div>
-    <div id="app-content" data-bind="include_module: app_module"></div>
+<div id="module-navigator" class="x-collapse">
+  <div id="menu-header">
+    <button data-bind="click: expand"></button>
+    <h2>Menu</h2>
   </div>
-  <div id="app-footer" data-bind="include_module: 'footer'"></div>
+  <ul>
+    <li><button data-bind="click: function() { openModule('test') }">Test</button></li>
+    <li><button data-bind="click: function() { openModule('form') }">Form</button></li>
+    <li><button data-bind="click: function() { openModule('list') }">List</button></li>
+    <li><button data-bind="click: function() { openModule('table') }">Table</button></li>
+    <li><button data-bind="click: function() { openModule('nested') }">Nested</button></li>
+    <li><button data-bind="click: function() { openModule('custom') }">Custom</button></li>
+    <li><button data-bind="click: function() { openModule('tabs') }">Tabs</button></li>
+    <li><button data-bind="click: function() { openModule('KO') }">KO</button></li>
+  </ul>
 </div>

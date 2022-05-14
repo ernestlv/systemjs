@@ -4,8 +4,6 @@ define([
 
       console.log("Executing Navigator Loader...");
 
-      var modulePromise = loader.request_module2("navigator");
-
-      return modulePromise;
+      return loader.load_module("navigator");
 
 });

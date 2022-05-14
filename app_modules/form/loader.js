@@ -4,6 +4,6 @@ define([
 
       console.log("Executing Form Loader...");
 
-      return loader.request_module2("form");
+      return loader.load_module("form");
 
 });

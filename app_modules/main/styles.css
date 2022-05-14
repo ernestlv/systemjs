@@ -6,3 +6,7 @@
   color: silver;
   margin-top: 0;
 }
+
+#module-main #myModal button#open-web-app {
+  display: none; //hide button in test module
+}

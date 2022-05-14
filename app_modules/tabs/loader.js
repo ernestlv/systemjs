@@ -6,6 +6,6 @@ define([
 
       var tabModules = [ "table", "form", "list" ]; //see tabs/viewmodule.js
 
-      return loader.request_module2("tabs", tabModules);
+      return loader.load_module("tabs", tabModules);
 
 });

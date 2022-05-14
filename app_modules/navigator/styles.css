@@ -1,2 +1,49 @@
 #module-navigator {
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border-right: 1px solid silver;
+  height: 100%;
+}
+
+#module-navigator h2 {
+  margin-top: 0;
+  color:silver;
+}
+
+#module-navigator #menu-header button {
+  float: right;
+}
+
+#module-navigator #menu-header button::before {
+  content: '-';
+}
+
+#module-navigator.x-collapse #menu-header button::before {
+  content: '+';
+}
+
+#module-navigator ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#module-navigator ul button {
+  width: 10rem;
+}
+
+#module-navigator:not(.x-collapse) {
+  width: 13rem;
+}
+
+#module-navigator.x-collapse {
+  width: 3.3rem;
+}
+
+#module-navigator.x-collapse h2 {
+  display: none;
+}
+
+#module-navigator.x-collapse ul {
+  display: none;
 }
