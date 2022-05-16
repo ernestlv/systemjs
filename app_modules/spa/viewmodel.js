@@ -12,6 +12,10 @@ define([
 
   return function SPAModel() {
     var current_module = "test";
+    this.args = {
+      arg1:"Hello",
+      arg2:"World!!!"
+    };
     var remove_module = loader.get_observable("remove_module");
 
     this.app_module = loader.get_observable("app_module");
