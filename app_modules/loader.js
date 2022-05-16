@@ -6,6 +6,10 @@ define([
       console.log("Executing Module app loader ...");
 
       var observables = {};
+      var app_module = create_observable("app_module"); //points to current module in #app_content
+      var element_ready = create_observable("element_ready"); //fires after #app_content is updated
+      var module_ready = create_observable("module_ready"); //fires after #app_content is updated
+      var remove_module = create_observable("remove_module"); //fires before #app_content content is removed
 
       function create_viewmodel(id, htmlPromise, cssPromise, viewmodelPromise, argsPromise) {
         return Promise.all([htmlPromise, cssPromise, viewmodelPromise, argsPromise]).then(function([html, css, ViewModel, args]){
@@ -97,14 +101,14 @@ define([
         });
       }
 
-      function render_child_module(promiseModule, element, bindingContext) { //module to render in element using child context
+      function render_child_submodule(promiseSubmodule, element, bindingContext) { //submodule to render in element using child context
         if (!element) {
           return Promise.resolve();
         }
-        console.log("request render child module:", element);
-        return promiseModule.then(function(module){
-          console.log("rendering module:", module.id);
-          var { html, css, viewmodel } =  module;
+        console.log("request render child submodule:", element);
+        return promiseSubmodule.then(function(submodule){
+          var { id, html, css, viewmodel } =  submodule;
+          console.log("rendering submodule:", id);
           css && $(element).append('<style type="text/css">' + css + '</style>');
           html && $(element).append(html);
           if (viewmodel) {
@@ -119,19 +123,19 @@ define([
               console.error(e, "element:", element, "viewmodel:", viewmodel);
             }
           }
-          return module;
+          return submodule;
         });
       }
 
-      function request_render_module(modulePromise, moduleURL, element, bindingContext) {
+      function request_render_submodule(modulePromise, submoduleURL, element, bindingContext) {
         modulePromise = !modulePromise ? Promise.resolve() : modulePromise;
         return modulePromise.then(function(module){
-          console.log("requesting module:", moduleURL);
-          return System.import(moduleURL).then(function(submodule) { //this import is cached
-            console.log("module", moduleURL, "resolved.");
+          console.log("requesting submodule:", submoduleURL);
+          return System.import(submoduleURL).then(function(submodule) { //this import is cached
+            console.log("submodule", submoduleURL, "resolved.");
             var submodulePromise = submodule.default;
-            return render_child_module(submodulePromise, element, bindingContext).then(function(submodule){
-              console.log("module", moduleURL, "rendered.");
+            return render_child_submodule(submodulePromise, element, bindingContext).then(function(submodule){
+              console.log("submodule", submoduleURL, "rendered.");
               return submodule;
             });
           });
@@ -139,7 +143,7 @@ define([
       }
 
       function update_module(moduleURL, element, bindingContext) { //notify after module is inserted in element
-        return request_render_module(null, moduleURL, element, bindingContext).then(function(module){
+        return request_render_submodule(null, moduleURL, element, bindingContext).then(function(module){
           element_ready(element); //notify sends DOM element
           module_ready(module); //notify sends module:{id, html, css, viewmodel}
           return module;
@@ -164,36 +168,6 @@ define([
       function get_observable(id) {
         return observables[id];
       }
-
-      var app_module = create_observable("app_module"); //points to current module in #app_content
-      var element_ready = create_observable("element_ready"); //fires after #app_content is updated
-      var module_ready = create_observable("module_ready"); //fires after #app_content is updated
-      var remove_module = create_observable("remove_module"); //fires before #app_content content is removed
-
-      KO.bindingHandlers.request_module = {
-        init: function(element, valueAccessor, allBindings, viewmodel, bindingContext) {
-          return { controlsDescendantBindings: true};
-        },
-
-        update: function(element, valueAccessor, allBindings, viewmodel, bindingContext){
-          //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
-          var moduleURL = KO.unwrap(valueAccessor()); //see app_module
-          update_module(moduleURL, element, bindingContext);
-        }
-      };
-
-      KO.bindingHandlers.include_module = {
-        init: function(element, valueAccessor, allBindings, viewmodel, bindingContext) {
-          return { controlsDescendantBindings: true};
-        },
-
-        update: function(element, valueAccessor, allBindings, viewmodel, bindingContext){
-          //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
-          var moduleURL = KO.unwrap(valueAccessor()); //see app_module
-          moduleURL = "/app_modules/" + moduleURL + "/loader.js";
-          update_module(moduleURL, element, bindingContext);
-        }
-      };
 
       function when_element_ready(id, cb) { //executed after HTML is injected in DOM element
         return element_ready.subscribe(function(element) {
@@ -227,6 +201,31 @@ define([
         });
       }
 
+      KO.bindingHandlers.request_module = {
+        init: function(element, valueAccessor, allBindings, viewmodel, bindingContext) {
+          return { controlsDescendantBindings: true};
+        },
+
+        update: function(element, valueAccessor, allBindings, viewmodel, bindingContext){
+          //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
+          var moduleURL = KO.unwrap(valueAccessor()); //see app_module
+          update_module(moduleURL, element, bindingContext);
+        }
+      };
+
+      KO.bindingHandlers.include_module = {
+        init: function(element, valueAccessor, allBindings, viewmodel, bindingContext) {
+          return { controlsDescendantBindings: true};
+        },
+
+        update: function(element, valueAccessor, allBindings, viewmodel, bindingContext){
+          //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
+          var moduleURL = KO.unwrap(valueAccessor()); //see app_module in /spa/template.html
+          moduleURL = "/app_modules/" + moduleURL + "/loader.js";
+          update_module(moduleURL, element, bindingContext);
+        }
+      };
+
       //ajax request html fragment and injects it in element def by selector
       return {
         request_module,
@@ -235,9 +234,9 @@ define([
 
         render_module,
 
-        render_child_module,
+        render_child_submodule,
 
-        request_render_module,
+        request_render_submodule,
 
         ready,
 
