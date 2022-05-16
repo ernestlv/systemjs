@@ -12,7 +12,7 @@ define([
   });
 
   return function MainModel() {
-    var current_module = "home";
+    var current_module = "form";
     var remove_module = loader.get_observable("remove_module");
     this.app_module = loader.get_observable("app_module");
     this.app_module(current_module);

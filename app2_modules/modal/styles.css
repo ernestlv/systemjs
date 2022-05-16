@@ -1,0 +1,12 @@
+#module-modal {
+  padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+#module-modal h2 {
+  color: silver;
+  margin-top: 0;
+}
+
+#module-modal #myModal button#open-web-app {
+  display: none; //hide button in test module
+}

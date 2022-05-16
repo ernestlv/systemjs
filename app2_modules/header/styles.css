@@ -1,0 +1,9 @@
+#module-header {
+  overflow:hidden; /* expand div container to encompass h1 margins. see https://stackoverflow.com/questions/20935514/margin-on-h1-element-inside-a-div */
+  border-bottom: 1px solid silver;
+}
+#module-header h1 {
+  margin:2rem 0;
+  padding:0 0.5rem;
+  color:silver;
+}

@@ -27,12 +27,12 @@
 </head>
 <body>
   <div id="page-form" class="page-content">
-    <div id="app-header" data-bind="include_module: 'header'"></div>
+    <div id="app-header" data-bind="load_module: 'header'"></div>
     <div id="app-body">
-      <div id="app-menu" data-bind="include_module: 'menu'"></div>
-      <div id="app-content" data-bind="include_module: 'list'"></div>
+      <div id="app-menu" data-bind="load_module: 'menu'"></div>
+      <div id="app-content" data-bind="load_module: 'list'"></div>
     </div>
-    <div id="app-footer" data-bind="include_module: 'footer'"></div>
+    <div id="app-footer" data-bind="load_module: 'footer'"></div>
   </div>
   <script>
     define([
