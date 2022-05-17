@@ -7,7 +7,7 @@ define([
 
       var observables = {};
       var root_folder = create_observable("root_folder");
-      var default_content_module = create_observable("default_content_module");
+      var default_module = create_observable("default_module");
       var app_module = create_observable("app_module"); //points to current module in #app_content
       var element_ready = create_observable("element_ready"); //fires after #app_content is updated
       var module_ready = create_observable("module_ready"); //fires after #app_content is updated
@@ -145,9 +145,10 @@ define([
         });
       }
 
-      function update_module(moduleURL, element, allBindings, bindingContext, default_module) { //notify after module is inserted in element
-        var temp = default_module || allBindings.get("default_content_module");
-        temp && default_content_module(temp);
+      function update_module(moduleURL, element, allBindings, bindingContext, default_module_local) { //notify after module is inserted in element
+        debugger
+        var temp = default_module_local || allBindings.get("default_module");
+        temp && default_module(temp); //see main/viewmodel.js
         return request_render_module(null, moduleURL, element, bindingContext).then(function(module){
           element_ready(element); //notify sends DOM element
           module_ready(module); //notify sends module:{id, html, css, viewmodel}
