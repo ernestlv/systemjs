@@ -3,6 +3,6 @@ define([
 ], function(loader) {
       console.log("Executing Table Loader...");
 
-      return loader.load_module("table");
+      return loader.load_module("table", null, "/app1_modules/");
 
 });

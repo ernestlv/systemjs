@@ -9,13 +9,13 @@
   </div>
   <div class="tabs-content" >
     <div data-bind="visible:  currentTab() == 0">
-      <div id="table" data-bind="load_module: 'table'"></div>
+      <div id="table" data-bind="request_module: '/app1_modules/table'"></div>
     </div>
     <div data-bind="visible: currentTab() == 1">
-      <div id="form" data-bind="load_module: 'form'"></div>
+      <div id="form" data-bind="request_module: '/app1_modules/form'"></div>
     </div>
     <div  data-bind="visible: currentTab() == 2">
-      <div id="list" data-bind="load_module: 'list'"></div>
+      <div id="list" data-bind="request_module: '/app1_modules/list'"></div>
     </div>
   </div>
 </div>

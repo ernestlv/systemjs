@@ -6,8 +6,8 @@
     <li role="presentation"><button data-target="#list" aria-controls="list" role="tab" data-toggle="tab">List</button></li>
   </ul>
   <div class="tab-content" >
-    <div role="tabpanel" class="tab-pane active" id="table" data-bind="load_module: 'table'"></div>
-    <div role="tabpanel" class="tab-pane" id="form" data-bind="load_module: 'form'"></div>
-    <div role="tabpanel" class="tab-pane" id="list" data-bind="load_module: 'list'"></div>
+    <div role="tabpanel" class="tab-pane active" id="table" data-bind="request_module: '/app1_modules/table'"></div>
+    <div role="tabpanel" class="tab-pane" id="form" data-bind="request_module: '/app1_modules/form'"></div>
+    <div role="tabpanel" class="tab-pane" id="list" data-bind="request_module: '/app1_modules/list'"></div>
   </div>
 </div>

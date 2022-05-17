@@ -5,7 +5,6 @@ define([
   console.log("Executing Tabs Module...");
 
   var loadedTabs = [];
-  var element_ready = loader.get_observable("element_ready");
   var currentTab = loader.create_observable("currentTab", "");
 
   function click(){
@@ -48,8 +47,9 @@ define([
       if (index !== -1) {
         return; //abort tab already loaded
       }
-      var moduleURL = loader.get_root_folder() + selectedTabName + "/loader.js";
-      loader.update_module(moduleURL, element, bindingContext).then(function(module){
+      var root_folder = loader.get_observable("root_folder");
+      var moduleURL = root_folder() + selectedTabName + "/loader.js";
+      loader.update_module(moduleURL, element, allBindings, bindingContext).then(function(module){
         loadedTabs.push(selectedTabName);
         console.log("Tab was rendered", selectedTabName);
       });
