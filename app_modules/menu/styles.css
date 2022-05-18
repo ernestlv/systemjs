@@ -1,14 +1,17 @@
 #module-menu {
   box-sizing: border-box;
+  background-color: whitesmoke;
+  overflow: hidden; /* expand div container to encompass h1 margins. see https://stackoverflow.com/questions/20935514/margin-on-h1-element-inside-a-div */
+  border-bottom: 1px solid silver;
 }
 
 #module-menu ul {
   list-style-type: none;
-  margin: 0;
+  margin: 0.5rem 0 0.5rem;
   padding: 0;
 }
 
 #module-menu ul li {
   display: inline;
-  margin: 0 0 1rem 1rem;
+  margin: 0 0 0 1rem;
 }

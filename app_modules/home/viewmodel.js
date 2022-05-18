@@ -1,5 +1,5 @@
 define([
-], function($, KO, loader, Person, car) {
+], function() {
 
   console.log("Executing Test Module...");
 

@@ -1,5 +1,6 @@
 #module-navigator {
   padding: 0.5rem;
+  padding-left: 1rem;
   box-sizing: border-box;
   border-right: 1px solid silver;
   height: 100%;
@@ -10,15 +11,15 @@
   color:silver;
 }
 
-#module-navigator #menu-header button {
+#module-navigator #navigator-header button {
   float: right;
 }
 
-#module-navigator #menu-header button::before {
+#module-navigator #navigator-header button::before {
   content: '-';
 }
 
-#module-navigator.x-collapse #menu-header button::before {
+#module-navigator.x-collapse #navigator-header button::before {
   content: '+';
 }
 
