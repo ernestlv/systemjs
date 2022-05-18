@@ -23,16 +23,15 @@
   </script>
 </head>
 <body>
-  <div id="page-app2" class="page-content" data-bind="default_module:'modal'"></div>
+  <div id="page-app2" data-bind="default_module:'modal', root_folder:'/app2_modules/'"></div>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.12.1/system.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.12.1/extras/named-register.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.12.1/extras/amd.min.js"></script>
   <script>
     define([
       "knockout",
-      "loader" //required for load_module
+      "loader" //required for default_module
     ], function(KO, loader){
-      loader.get_observable("root_folder")("/app2_modules/");
       KO.applyBindings({});
     });
   </script>

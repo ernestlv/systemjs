@@ -7,3 +7,8 @@
   padding:0 0.5rem;
   color:silver;
 }
+
+#module-header #app-menu {
+  position: relative;
+  top: -1rem;
+}

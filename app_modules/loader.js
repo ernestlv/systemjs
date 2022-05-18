@@ -145,9 +145,10 @@ define([
         });
       }
 
-      function update_module(moduleURL, element, allBindings, bindingContext, default_module_local) { //notify after module is inserted in element
-        debugger
-        var temp = default_module_local || allBindings.get("default_module");
+      function update_module(moduleURL, element, allBindings, bindingContext) { //notify after module is inserted in element
+        var temp = root_folder() || allBindings.get("root_folder");
+        temp && root_folder(temp);
+        temp = default_module() || allBindings.get("default_module");
         temp && default_module(temp); //see main/viewmodel.js
         return request_render_module(null, moduleURL, element, bindingContext).then(function(module){
           element_ready(element); //notify sends DOM element
@@ -241,9 +242,10 @@ define([
 
         update: function(element, valueAccessor, allBindings, viewmodel, bindingContext){
           //see https://stackoverflow.com/questions/19422801/knockoutjs-bindinghandler-with-childbindingcontext-data-parent
-          var default_module = KO.unwrap(valueAccessor()); //see app_module in /spa/template.html
+          var temp = KO.unwrap(valueAccessor()); //see app_module in /spa/template.html
+          default_module(temp);
           moduleURL = "/app_modules/main/loader.js";
-          update_module(moduleURL, element, allBindings, bindingContext, default_module);
+          update_module(moduleURL, element, allBindings, bindingContext);
         }
       };
 

@@ -20,8 +20,5 @@ define([
       var date = new Date();
       msg(date);
     };
-    this.openWebApp = function() {
-      location = "/pages/main.html";
-    }
   };
 });

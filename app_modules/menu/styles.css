@@ -1,0 +1,14 @@
+#module-menu {
+  box-sizing: border-box;
+}
+
+#module-menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#module-menu ul li {
+  display: inline;
+  margin: 0 0 1rem 1rem;
+}

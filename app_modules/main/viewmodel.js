@@ -5,7 +5,7 @@ define([
 
   console.log("Executing Main Module...");
 
-  loader.when_element_ready("app-content", function(element) {
+  loader.when_element_ready("app-menu", function(element) {
     console.log("Main content rendered:", element.id);
     $(document.body).addClass("modules-rendered"); //display whole app after everything is loaded and rendered
   });
