@@ -8,7 +8,7 @@ The idea here is to mimic the component architecture in react and angular to cre
 
 Here the main peace of the application is the javascript module not the javascript component.
 
-The concept of module is somewhat more open than components because a module can represent a small fragment in a pager or an entire page in itself.
+The concept of module is somewhat more relaxed than components because a module can represent a small fragment in a pager or an entire page in itself.
 
 The challenge is how to handle inter-module communication. As a first approache we did that using observers. You can create observers and have modules to subscribe to them so they can react upon the observe updates.
 
