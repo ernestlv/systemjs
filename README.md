@@ -6,7 +6,7 @@ we used knockout on purpose. Even though there are other libraries or frameworks
 
 The idea here is to mimic the component architecture in react and angular to create a simple & fast single page application using modern patterns.
 
-Here the main peace of the application is the javascript module not the javascript component.
+Here the main piece of the application is the javascript module not the javascript component.
 
 The concept of module is somewhat more relaxed than components because a module can represent a small fragment in a pager or an entire page in itself.
 
