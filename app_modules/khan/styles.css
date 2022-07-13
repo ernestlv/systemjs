@@ -1,0 +1,43 @@
+#module-khan {
+  height: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+#module-khan h2 {
+  margin-top: 0;
+  color:silver;
+}
+
+#module-khan ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#module-khan .khan-wrapper {
+  display:flex;
+}
+
+#module-khan .khan-menu {
+  flex-basis: 15%;
+}
+
+#module-khan .khan-menu button {
+  width: 13rem;
+  margin-top: 0.5rem;
+  text-align: left;
+}
+
+#module-khan .khan-menu button.active::before {
+  content:'> ';
+}
+
+#module-khan .khan-content {
+  flex-basis: 85%;
+}
+
+#module-khan .khan-content iframe {
+  width: 100%;
+  height: 100%;
+}
