@@ -1,29 +1,28 @@
-## Micro front-ends and Module Federation implementation using systemjs, jquery, knockout & bootstrap
+## Micro front-ends and Module Federation implementation using systemjs, jquery, knockout & bootstrap web app
 
-modular mvvm web app based on systemjs, jquery, knockout & bootstrap
+Modular reactive (mvvm) web app based on systemjs, jquery, knockout & bootstrap
 
-we used knockout on purpose. Even though there are other libraries or frameworks like react or angular. Knowckout is small and simple.
+we used knockout on purpose. Even though there are other modern libraries or frameworks like react or angular. Knowckout is small and simple and the main goal of the app is to explore the implementation of micro front-ends and module federation.
 
-The idea here is to mimic the component architecture in react and angular to create a simple & fast single page application using modern patterns.
+The idea here is to reuse the component architecture defined in react and angular to create a simple & fast single page application but using modern patterns; i.e. micro front-ends and module federation.
 
 Here the main piece of the application is the javascript module not the javascript component.
 
-The concept of module is somewhat more relaxed than components because a module can represent a small fragment in a pager or an entire page in itself.
+The concept of module is somewhat more relaxed than components because a module can represent a small fragment in a page or an entire page in itself.
 
-The challenge is how to handle inter-module communication. As a first approache we did that using observers. You can create observers and have modules to subscribe to them so they can react upon the observe updates.
+The current trend in many web applications is to create multiple bundles that contain an entire set of applications that are aggregated to create a larger application; this is called micro front-ends or module federation depending on the way you approach to it. Webpack call it module federation and the idea is to reduce bunlde size by declared shared bundles and minimize server requests to speed up the application. However micro front-ends combined with systemjs follows a different approach that allows us to progressively load javascript modules as they are needed. The former is the approach we initially followed here. 
 
-Additionally, we use systemjs instead of webpack. The current trend in many web applications is to create bundles that contain the entire application. With webpack bundles the idea is to minimize server requests to speed up the application. We took a different approach using systemjs to progressively load javascript modules as they are needed. Here the challenge is to tweak the application to provide an optimal user experience for the user to not "feel" the application slow since it will be loaded in small fragments (modules). In this sense, there are two important pieces, first define small modules and second leverage the browser cache.
+However, here are some challenges we faced:
+
+1) The challenge is how to handle inter-module communication. As a first approache we did that using observers. You can create observers and have modules to subscribe to them so they can react upon the observe updates.
+2) How to handle shared dependencies on this we are explorying the possibility to create a hybrid application that combine webpack module federation approach and micro front-ends.
+3) To tweak the application to provide an optimal user experience for the user to not "feel" the application slow since it will be loaded in small fragments (modules). In this sense, there are two important pieces, first define small modules and second leverage the browser cache.
 
 Another goal of this project is to use as much as possible the browser native APIs. With the exception of jquery to manipulate the DOM most of the modules are implemented in plain HTML, CSS and JavaScritp.
 
 The end result is a compact & consisten codebase, with a performant web application.
 
-requires 
-
-node > 10.0.0
-
-note
-This application was inspired after our work with single-spa and the analysis of his routing strategy to dynamic load modules using system.js as well as angular lazy loading approach and later webpack 5 module federation.
+requires node > 10.0.0
 
 see
 
