@@ -1,16 +1,16 @@
-## Micro front-ends and Module Federation implementation using systemjs, jquery, knockout & bootstrap web app
+## Micro frontends and Module Federation implementation using systemjs, jquery, knockout & bootstrap web app
 
 Modular reactive (mvvm) web app based on systemjs, jquery, knockout & bootstrap
 
-we used knockout on purpose. Even though there are other modern libraries or frameworks like react or angular. Knowckout is small and simple and the main goal of the app is to explore the implementation of micro front-ends and module federation.
+we used knockout on purpose. Even though there are other modern libraries or frameworks like React or Angular. Knowckout is small and simple and the main goal of the app is to explore the implementation of micro frontends and module federation.
 
-The idea here is to reuse the component architecture defined in react and angular to create a simple & fast single page application but using modern patterns; i.e. micro front-ends and module federation.
+The idea here is to reuse the component architecture defined in react and angular to create a simple & fast single page application but using modern patterns; i.e. micro frontends and module federation.
 
 Here the main piece of the application is the javascript module not the javascript component.
 
 The concept of module is somewhat more relaxed than components because a module can represent a small fragment in a page or an entire page in itself.
 
-The current trend in many web applications is to create multiple bundles that contain an entire set of applications that are aggregated to create a larger application; this is called micro front-ends or module federation depending on the way you approach to it. Webpack call it module federation and the idea is to reduce bunlde size by declared shared bundles and minimize server requests to speed up the application. However micro front-ends combined with systemjs follows a different approach that allows us to progressively load javascript modules as they are needed. The former is the approach we initially followed here. 
+The current trend in many web applications is to create multiple bundles that contain an entire set of applications that are aggregated to create a larger application; this is called micro frontends or module federation depending on the way you approach to it. Webpack call it module federation and the idea is to reduce bunlde size by declared shared bundles and minimize server requests to speed up the application. However, micro frontends combined with systemjs follows a different approach that allows us to progressively load javascript modules as they are needed. The former is the approach we initially followed here. 
 
 However, here are some challenges we faced:
 
