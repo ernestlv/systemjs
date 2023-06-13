@@ -1,4 +1,4 @@
-# systemjs, jquery, knockout & bootstrap web app
+## Micro front-ends and Module Federation implementation using systemjs, jquery, knockout & bootstrap
 
 modular mvvm web app based on systemjs, jquery, knockout & bootstrap
 
@@ -18,8 +18,16 @@ Another goal of this project is to use as much as possible the browser native AP
 
 The end result is a compact & consisten codebase, with a performant web application.
 
-requires node > 10.0.0
+requires 
+
+node > 10.0.0
+
+note
+This application was inspired after our work with single-spa and the analysis of his routing strategy to dynamic load modules using system.js as well as angular lazy loading approach and later webpack 5 module federation.
 
 see
 
 -> https://github.com/systemjs/systemjs-examples
+-> https://www.syncfusion.com/blogs/post/what-is-webpack-module-federation-and-why-does-it-matter.aspx
+-> https://blog.bitsrc.io/module-federation-vs-single-spa-47da53b67ed0
+-> https://medium.com/@rkhasawneh/single-spa-with-module-federation-in-systemjs-446f0de4832b
